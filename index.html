@@ -10,28 +10,60 @@
     <style>
         body {
             font-family: 'Fredoka', sans-serif;
-            background-color: #0f172a;
-            background-image: radial-gradient(circle at top, #1e1b4b 0%, #0f172a 100%);
+            background: radial-gradient(circle at top, #1d2345 0, #050816 55%),
+                        radial-gradient(circle at bottom, #0f172a 0, #020617 60%);
+            color: #e5e7eb;
+            background-attachment: fixed;
+        }
+
+        /* Estrellas mágicas de fondo */
+        .stars {
+            background-image: radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+                              radial-gradient(2px 2px at 40px 70px, rgba(99, 102, 241, 0.8), rgba(0,0,0,0)),
+                              radial-gradient(2px 2px at 50px 160px, #fff, rgba(0,0,0,0)),
+                              radial-gradient(2px 2px at 90px 40px, rgba(34, 211, 238, 0.8), rgba(0,0,0,0)),
+                              radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
+                              radial-gradient(2px 2px at 160px 120px, rgba(250, 204, 21, 0.5), rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: -1;
+            opacity: 0.35;
+            animation: twinkle 4s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            100% { opacity: 0.6; }
         }
         
-        .pop-animation {
-            animation: popText 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        /* Animaciones suaves para los resultados */
+        .resultado {
+            display: inline-block;
+            transition: transform 0.15s ease, text-shadow 0.15s ease, color 0.15s ease;
+            width: 100%;
         }
 
-        @keyframes popText {
-            0% { transform: scale(1); color: #f472b6; }
-            50% { transform: scale(1.1); color: #fde047; }
-            100% { transform: scale(1); color: #38bdf8; text-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
+        .resultado--nuevo {
+            animation: pop 0.35s ease-out;
         }
 
+        @keyframes pop {
+            0% { transform: scale(0.9); opacity: 0; }
+            60% { transform: scale(1.06); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        /* Interfaz limpia y mágica */
         .system-window {
-            background: rgba(15, 23, 42, 0.8);
-            border: 2px solid #38bdf8;
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.3), inset 0 0 20px rgba(56, 189, 248, 0.1);
-            backdrop-filter: blur(10px);
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid #4f46e5;
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(12px);
         }
 
-        /* Ocultar barra de desplazamiento en el pop-up para que se vea más limpio */
+        /* Ocultar barra de desplazamiento en el pop-up */
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -39,100 +71,113 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        /* Mejora lectura en modal */
+        #view-details p {
+            line-height: 1.5;
+        }
     </style>
 </head>
-<body class="min-h-screen text-white flex flex-col items-center py-6 px-4">
+<body class="min-h-screen text-white flex flex-col items-center py-6 px-4 sm:px-6 relative">
+
+    <!-- Fondo mágico de estrellas -->
+    <div class="stars"></div>
 
     <!-- Encabezado -->
-    <header class="text-center mb-6 mt-4 w-full max-w-md">
-        <h1 class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 mb-2 drop-shadow-lg">
+    <header class="text-center mb-6 mt-4 w-full max-w-md sm:max-w-lg">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#22d3ee] to-[#6366f1] mb-2 drop-shadow-[0_0_10px_rgba(99,102,241,0.5)]">
             SISTEMA ISEKAI
         </h1>
-        <p class="text-cyan-200 text-sm md:text-base font-bold tracking-widest">CAMIÓN-SAN TE HA ELEGIDO</p>
+        <p class="text-[#facc15] text-xs md:text-sm font-semibold tracking-[0.24em] uppercase drop-shadow-md">
+            Camión-san te ha elegido
+        </p>
     </header>
 
     <!-- Contenedor Principal: VISTA DE RULETA -->
-    <div id="view-roulette" class="w-full flex flex-col items-center max-w-md">
-        <main class="system-window rounded-xl w-full p-5 flex flex-col gap-4 relative">
-            <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyan-400 rounded-tl-lg"></div>
-            <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-cyan-400 rounded-tr-lg"></div>
-            <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-cyan-400 rounded-bl-lg"></div>
-            <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-cyan-400 rounded-br-lg"></div>
-
+    <div id="view-roulette" class="w-full flex flex-col items-center max-w-md sm:max-w-lg">
+        <main class="system-window rounded-2xl w-full p-5 sm:p-6 flex flex-col gap-4 sm:gap-5 relative">
+            
             <!-- Ranura: Raza -->
-            <div class="bg-slate-800/50 rounded-lg p-3 border border-slate-700">
-                <h2 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2">
+            <div class="bg-slate-900/60 rounded-lg p-4 border border-indigo-900/60">
+                <h2 class="text-[0.75rem] md:text-xs text-indigo-300 uppercase tracking-[0.2em] mb-1.5 flex items-center gap-2">
                     <span>🧬</span> Nueva Especie
                 </h2>
-                <div id="val-raza" class="text-xl font-bold text-slate-200 min-h-[1.75rem] transition-all">...</div>
+                <div id="val-raza" class="resultado text-2xl md:text-3xl font-black text-slate-100 min-h-[2.4rem] leading-tight">???</div>
             </div>
 
             <!-- Ranura: Clase -->
-            <div class="bg-slate-800/50 rounded-lg p-3 border border-slate-700">
-                <h2 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2">
+            <div class="bg-slate-900/60 rounded-lg p-4 border border-indigo-900/60">
+                <h2 class="text-[0.75rem] md:text-xs text-indigo-300 uppercase tracking-[0.2em] mb-1.5 flex items-center gap-2">
                     <span>⚔️</span> Profesión Asignada
                 </h2>
-                <div id="val-clase" class="text-xl font-bold text-slate-200 min-h-[1.75rem] transition-all">...</div>
+                <div id="val-clase" class="resultado text-2xl md:text-3xl font-black text-slate-100 min-h-[2.4rem] leading-tight">???</div>
             </div>
 
             <!-- Ranura: Rasgo Anime -->
-            <div class="bg-slate-800/50 rounded-lg p-3 border border-slate-700">
-                <h2 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2">
+            <div class="bg-slate-900/60 rounded-lg p-4 border border-indigo-900/60">
+                <h2 class="text-[0.75rem] md:text-xs text-indigo-300 uppercase tracking-[0.2em] mb-1.5 flex items-center gap-2">
                     <span>✨</span> Tropo de Protagonista
                 </h2>
-                <div id="val-rasgo" class="text-lg font-bold text-slate-200 min-h-[3.5rem] flex items-center transition-all leading-tight">...</div>
+                <div id="val-rasgo" class="resultado text-base md:text-lg font-medium text-slate-200 italic min-h-[3.2rem] flex items-center leading-snug">???</div>
             </div>
 
             <!-- Ranura: Defecto -->
-            <div class="bg-slate-800/50 rounded-lg p-3 border border-slate-700">
-                <h2 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2">
+            <div class="bg-slate-900/60 rounded-lg p-4 border border-indigo-900/60">
+                <h2 class="text-[0.75rem] md:text-xs text-indigo-300 uppercase tracking-[0.2em] mb-1.5 flex items-center gap-2">
                     <span>💔</span> Condición Negativa
                 </h2>
-                <div id="val-defecto" class="text-lg font-bold text-slate-200 min-h-[3.5rem] flex items-center transition-all leading-tight">...</div>
+                <div id="val-defecto" class="resultado text-base md:text-lg font-medium text-slate-200 italic min-h-[3.2rem] flex items-center leading-snug">???</div>
             </div>
 
             <!-- Ranura: Objeto Roto -->
-            <div class="bg-slate-800/50 rounded-lg p-3 border border-slate-700">
-                <h2 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2">
+            <div class="bg-slate-900/60 rounded-lg p-4 border border-indigo-900/60">
+                <h2 class="text-[0.75rem] md:text-xs text-indigo-300 uppercase tracking-[0.2em] mb-1.5 flex items-center gap-2">
                     <span>🎒</span> Objeto Divino (O no...)
                 </h2>
-                <div id="val-objeto" class="text-lg font-bold text-slate-200 min-h-[2.5rem] flex items-center transition-all leading-tight">...</div>
+                <div id="val-objeto" class="resultado text-base md:text-lg font-medium text-slate-200 italic min-h-[3.2rem] flex items-center leading-snug">???</div>
             </div>
         </main>
 
-        <!-- Botón Principal -->
-        <button id="spin-btn" class="mt-8 relative group w-full opacity-50 cursor-not-allowed transition-all">
-            <div class="absolute -inset-1 bg-gradient-to-r from-red-600 to-pink-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-200 animate-pulse btn-glow"></div>
-            <div class="relative w-full bg-slate-900 border-2 border-pink-500 text-white font-black text-xl py-4 px-8 rounded-full shadow-2xl transform transition-transform active:scale-95 flex justify-center items-center gap-3">
+        <!-- Botón Principal (Con colores más positivos) -->
+        <button id="spin-btn" class="mt-6 sm:mt-8 relative group w-full transition-all opacity-50 cursor-not-allowed">
+            <div class="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-indigo-500 rounded-full blur opacity-60 group-hover:opacity-90 transition duration-200 btn-glow"></div>
+            <div class="relative w-full bg-slate-950/90 border border-cyan-300/60 text-white font-black text-lg md:text-xl py-3.5 px-6 rounded-full shadow-xl transform transition-transform group-active:scale-95 flex justify-center items-center gap-3">
                 <span class="text-2xl" id="btn-icon">⏳</span> 
-                <span id="btn-text">CARGANDO BASE DE DATOS...</span>
+                <span id="btn-text" class="tracking-[0.18em] text-xs md:text-sm uppercase">Cargando base de datos...</span>
             </div>
         </button>
 
         <!-- Botón para ver la ficha -->
         <button id="details-btn" class="hidden mt-6 bg-slate-800 border-2 border-cyan-500 text-cyan-300 font-bold py-3 px-8 rounded-full shadow-[0_0_10px_rgba(56,189,248,0.3)] hover:bg-slate-700 hover:text-white transition-all transform active:scale-95 flex justify-center items-center gap-2 w-full">
-            <span>🔍</span> VER FICHA DE NUEVO
+            <span>🔍</span> <span class="text-xs md:text-sm tracking-[0.18em] uppercase">Ver ficha de personaje</span>
         </button>
     </div>
 
-    <!-- Contenedor Secundario: VISTA DE DETALLES (Ahora como Pop-up/Modal) -->
-    <div id="view-details" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm">
-        <main id="modal-content" class="system-window rounded-xl w-full max-w-md p-5 flex flex-col gap-5 relative max-h-[90vh] overflow-y-auto no-scrollbar shadow-2xl transform scale-95 transition-transform duration-300">
-            <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-pink-400 rounded-tl-lg"></div>
-            <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-pink-400 rounded-tr-lg"></div>
-            <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-pink-400 rounded-bl-lg"></div>
-            <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-pink-400 rounded-br-lg"></div>
+    <!-- Contenedor Secundario: VISTA DE DETALLES (Pop-up/Modal) -->
+    <div id="view-details" class="fixed inset-0 bg-[#050816]/90 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm">
+        <main id="modal-content" class="system-window rounded-xl w-full max-w-md p-5 sm:p-6 flex flex-col gap-5 relative max-h-[90vh] overflow-y-auto no-scrollbar shadow-[0_0_30px_rgba(99,102,241,0.4)] transform scale-95 transition-transform duration-300">
+            
+            <!-- Botón X para cerrar en la esquina -->
+            <button id="back-btn" class="absolute top-3 right-3 w-8 h-8 bg-slate-900 border border-indigo-500/50 rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-red-500 hover:border-red-400 transition-colors z-20 shadow-lg text-lg cursor-pointer">
+                ✕
+            </button>
 
-            <h2 class="text-2xl font-black text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-red-500 border-b border-slate-700 pb-3">
-                FICHA DE PERSONAJE
+            <!-- Esquinas mágicas SOLO en el modal -->
+            <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#facc15] rounded-tl-lg"></div>
+            <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#facc15] rounded-tr-lg"></div>
+            <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#facc15] rounded-bl-lg"></div>
+            <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#facc15] rounded-br-lg"></div>
+
+            <h2 class="text-xl md:text-2xl font-black text-center text-transparent bg-clip-text bg-gradient-to-r from-[#facc15] to-[#f59e0b] border-b border-indigo-500/40 pb-3 tracking-[0.18em] uppercase">
+                Ficha de personaje
             </h2>
 
             <!-- Info Especie -->
             <div>
                 <h3 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2"><span>🧬</span> Especie Registrada</h3>
                 <div class="bg-slate-800/80 rounded p-3 border-l-4 border-cyan-500">
-                    <p id="det-raza-nombre" class="text-lg font-bold text-white mb-1">...</p>
-                    <p id="det-raza-desc" class="text-sm text-slate-300 italic leading-snug">...</p>
+                    <p id="det-raza-nombre" class="text-lg md:text-xl font-bold text-white mb-1">...</p>
+                    <p id="det-raza-desc" class="text-sm md:text-base text-slate-300 italic leading-relaxed">...</p>
                 </div>
             </div>
 
@@ -140,8 +185,8 @@
             <div>
                 <h3 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2"><span>⚔️</span> Profesión Registrada</h3>
                 <div class="bg-slate-800/80 rounded p-3 border-l-4 border-blue-500">
-                    <p id="det-clase-nombre" class="text-lg font-bold text-white mb-1">...</p>
-                    <p id="det-clase-desc" class="text-sm text-slate-300 italic leading-snug">...</p>
+                    <p id="det-clase-nombre" class="text-lg md:text-xl font-bold text-white mb-1">...</p>
+                    <p id="det-clase-desc" class="text-sm md:text-base text-slate-300 italic leading-relaxed">...</p>
                 </div>
             </div>
 
@@ -149,7 +194,7 @@
             <div>
                 <h3 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2"><span>✨</span> Tropo de Protagonista</h3>
                 <div class="bg-slate-800/80 rounded p-3 border-l-4 border-purple-500">
-                    <p id="det-rasgo-nombre" class="text-base font-bold text-white leading-tight">...</p>
+                    <p id="det-rasgo-nombre" class="text-sm md:text-base font-medium text-slate-200 italic leading-relaxed">...</p>
                 </div>
             </div>
 
@@ -157,7 +202,7 @@
             <div>
                 <h3 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2"><span>💔</span> Condición Negativa</h3>
                 <div class="bg-slate-800/80 rounded p-3 border-l-4 border-red-500">
-                    <p id="det-defecto-nombre" class="text-base font-bold text-white leading-tight">...</p>
+                    <p id="det-defecto-nombre" class="text-sm md:text-base font-medium text-slate-200 italic leading-relaxed">...</p>
                 </div>
             </div>
 
@@ -165,23 +210,20 @@
             <div>
                 <h3 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2"><span>🎒</span> Análisis del Objeto</h3>
                 <div class="bg-slate-800/80 rounded p-3 border-l-4 border-yellow-500">
-                    <p id="det-objeto-nombre" class="text-lg font-bold text-white mb-3">...</p>
+                    <p id="det-objeto-nombre" class="text-base md:text-lg font-bold text-white mb-3">...</p>
                     
-                    <div class="space-y-2">
-                        <div class="bg-green-900/30 border border-green-700/50 rounded p-2">
-                            <span class="text-xs font-bold text-green-400 uppercase">📈 Ventaja Narrativa:</span>
-                            <p id="det-objeto-ventaja" class="text-sm text-slate-200 mt-1 leading-snug">...</p>
+                    <div class="space-y-3">
+                        <div class="bg-green-900/30 border border-green-700/50 rounded p-3">
+                            <span class="text-xs font-bold text-green-400 uppercase tracking-wider">📈 Ventaja Narrativa:</span>
+                            <p id="det-objeto-ventaja" class="text-sm md:text-base text-slate-200 mt-1.5 leading-relaxed">...</p>
                         </div>
-                        <div class="bg-red-900/30 border border-red-700/50 rounded p-2">
-                            <span class="text-xs font-bold text-red-400 uppercase">📉 Desventaja Narrativa:</span>
-                            <p id="det-objeto-desventaja" class="text-sm text-slate-200 mt-1 leading-snug">...</p>
+                        <div class="bg-red-900/30 border border-red-700/50 rounded p-3">
+                            <span class="text-xs font-bold text-red-400 uppercase tracking-wider">📉 Desventaja Narrativa:</span>
+                            <p id="det-objeto-desventaja" class="text-sm md:text-base text-slate-200 mt-1.5 leading-relaxed">...</p>
                         </div>
                     </div>
                 </div>
-
-                <button id="back-btn" class="mt-2 bg-slate-900 border-2 border-slate-600 text-slate-300 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-slate-800 hover:text-white hover:border-slate-400 transition-all transform active:scale-95 flex justify-center items-center gap-2 w-full">
-                    <span>❌</span> CERRAR FICHA
-                </button>
+            </div>
         </main>
     </div>
 
@@ -189,10 +231,9 @@
         // --- CONEXIÓN A BASE DE DATOS (GITHUB) ---
         const jsonUrl = 'https://raw.githubusercontent.com/PoisonedIsa/Sistema-isekai-dungeons-and-dragons/main/recursos/base%20de%20datos.json';
         
-        let dbData = null; // Aquí guardaremos todo el JSON
-        let currentResults = {}; // Aquí guardaremos los objetos enteros que gane el jugador
+        let dbData = null; 
+        let currentResults = {}; 
         
-        // Mapeo de cómo se llama cada cosa en el JSON y en la interfaz
         const slotConfig = [
             { id: 'raza', dbKey: 'razas', displayField: 'nombre' },
             { id: 'clase', dbKey: 'clases', displayField: 'nombre' },
@@ -213,25 +254,56 @@
         
         let isSpinning = false;
 
-        // Función para cargar los datos de GitHub al iniciar la página
+        // Carga Inicial y Restauración de Memoria (localStorage)
         async function fetchDatabase() {
             try {
                 const response = await fetch(jsonUrl);
                 if (!response.ok) throw new Error("Error de red");
                 dbData = await response.json();
                 
-                // Activar el botón una vez cargados los datos
-                btnText.innerText = "¡FUI ATROPELLADO!";
-                btnIcon.innerText = "🚚";
-                spinBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                // Intentar restaurar resultados previos si existen
+                const saved = localStorage.getItem('isekaiCurrentResults');
                 
-                // Mostrar "???" inicial
-                slotConfig.forEach(config => {
-                    document.getElementById(`val-${config.id}`).innerText = "???";
-                });
+                if (saved) {
+                    try {
+                        currentResults = JSON.parse(saved);
+                        
+                        // Rellenar los slots visibles con datos guardados
+                        slotConfig.forEach(config => {
+                            const el = document.getElementById(`val-${config.id}`);
+                            const item = currentResults[config.id];
+                            if (item) {
+                                el.innerText = item[config.displayField];
+                                el.style.color = '#facc15';
+                                el.style.textShadow = '0 0 12px rgba(250, 204, 21, 0.4)';
+                            }
+                        });
+                        
+                        // Habilitar botón de ficha y preparar para tirar de nuevo
+                        detailsBtn.classList.remove('hidden');
+                        btnText.innerText = "¡OTRA VEZ!";
+                        btnIcon.innerText = "🚚";
+                        spinBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                        spinBtn.querySelector('.btn-glow').classList.add('animate-pulse');
+                        
+                    } catch (e) {
+                        console.error('Error al leer datos guardados:', e);
+                    }
+                } else {
+                    // Estado inicial sin resultados
+                    btnText.innerText = "¡FUI ATROPELLADO!";
+                    btnIcon.innerText = "🚚";
+                    spinBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    spinBtn.querySelector('.btn-glow').classList.add('animate-pulse');
+                    
+                    slotConfig.forEach(config => {
+                        document.getElementById(`val-${config.id}`).innerText = "???";
+                    });
+                }
+                
             } catch (error) {
                 console.error("Error al cargar JSON:", error);
-                btnText.innerText = "ERROR AL CARGAR SISTEMA";
+                btnText.innerText = "ERROR DE CONEXIÓN";
                 btnIcon.innerText = "⚠️";
                 spinBtn.querySelector('.btn-glow').classList.remove('animate-pulse');
             }
@@ -252,27 +324,36 @@
 
             slotConfig.forEach((config, index) => {
                 const el = document.getElementById(`val-${config.id}`);
-                const dataArray = dbData[config.dbKey]; // Obtenemos el array del JSON (ej: dbData.razas)
+                const dataArray = dbData[config.dbKey]; 
                 
-                el.classList.remove('pop-animation', 'text-cyan-400');
-                el.classList.add('text-pink-400', 'blur-[1px]', 'scale-95');
+                el.style.color = '';
+                el.style.textShadow = '';
+                el.classList.remove('text-slate-100', 'text-slate-200');
+                el.classList.add('text-indigo-300', 'blur-[1px]');
                 
-                // Efecto de pasar rápido
                 intervals[config.id] = setInterval(() => {
                     const randomItem = dataArray[Math.floor(Math.random() * dataArray.length)];
                     el.innerText = randomItem[config.displayField];
-                }, 60);
+                    
+                    el.classList.remove('resultado--nuevo');
+                    void el.offsetWidth; 
+                    el.classList.add('resultado--nuevo');
+                }, 110); 
 
-                // Detenerse
                 setTimeout(() => {
                     clearInterval(intervals[config.id]);
                     
                     const finalItem = dataArray[Math.floor(Math.random() * dataArray.length)];
-                    currentResults[config.id] = finalItem; // GUARDAMOS EL OBJETO COMPLETO
+                    currentResults[config.id] = finalItem; 
                     el.innerText = finalItem[config.displayField];
                     
-                    el.classList.remove('text-pink-400', 'blur-[1px]', 'scale-95');
-                    el.classList.add('pop-animation');
+                    el.classList.remove('text-indigo-300', 'blur-[1px]');
+                    el.style.color = '#facc15';
+                    el.style.textShadow = '0 0 12px rgba(250, 204, 21, 0.4)';
+                    
+                    el.classList.remove('resultado--nuevo');
+                    void el.offsetWidth;
+                    el.classList.add('resultado--nuevo');
 
                     if (index === slotConfig.length - 1) {
                         isSpinning = false;
@@ -280,10 +361,13 @@
                         spinBtn.querySelector('.btn-glow').classList.add('animate-pulse');
                         btnText.innerText = "¡OTRA VEZ!";
                         
+                        // GUARDAR RESULTADO EN MEMORIA LOCAL
+                        localStorage.setItem('isekaiCurrentResults', JSON.stringify(currentResults));
+                        
                         setTimeout(() => {
                             detailsBtn.classList.remove('hidden');
-                            detailsBtn.classList.add('pop-animation');
-                            openModal(); // Auto-abrir la ficha
+                            detailsBtn.classList.add('resultado--nuevo');
+                            openModal(); 
                         }, 600);
                     }
                 }, stopDurations[index]);
@@ -292,36 +376,31 @@
 
         // Función para abrir el pop-up y llenar los datos
         function openModal() {
-            // Llenar Ficha con la información extraida del JSON en currentResults
+            if(!currentResults.raza) return; // Prevenir si no hay datos
             
-            // Raza
+            // Llenar Ficha con la información extraida
             document.getElementById('det-raza-nombre').innerText = currentResults.raza.nombre;
             document.getElementById('det-raza-desc').innerText = currentResults.raza.descripcion;
             
-            // Clase
             document.getElementById('det-clase-nombre').innerText = currentResults.clase.nombre;
             document.getElementById('det-clase-desc').innerText = currentResults.clase.descripcion;
             
-            // Rasgos
             document.getElementById('det-rasgo-nombre').innerText = currentResults.rasgo.texto;
             document.getElementById('det-defecto-nombre').innerText = currentResults.defecto.texto;
             
-            // Objeto
             document.getElementById('det-objeto-nombre').innerText = currentResults.objeto.nombre;
             document.getElementById('det-objeto-ventaja').innerText = currentResults.objeto.ventaja;
             document.getElementById('det-objeto-desventaja').innerText = currentResults.objeto.desventaja;
             
-            // Mostrar Modal (Pop-up) con animación
+            // Mostrar Modal
             viewDetails.classList.remove('opacity-0', 'pointer-events-none');
             viewDetails.classList.add('opacity-100', 'pointer-events-auto');
             modalContent.classList.remove('scale-95');
             modalContent.classList.add('scale-100');
         }
 
-        // Lógica para mostrar la ficha manualmente (si la cerraron)
         detailsBtn.addEventListener('click', openModal);
 
-        // Lógica para cerrar el pop-up
         backBtn.addEventListener('click', () => {
             viewDetails.classList.remove('opacity-100', 'pointer-events-auto');
             viewDetails.classList.add('opacity-0', 'pointer-events-none');
@@ -329,7 +408,7 @@
             modalContent.classList.add('scale-95');
         });
 
-        // Iniciar la carga al abrir la web
+        // Iniciar
         fetchDatabase();
 
     </script>
