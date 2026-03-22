@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isekai D&D - Ruleta de Reencarnación</title>
+    <!-- Usamos Tailwind CSS para el diseño rápido y responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fuente con estilo de videojuego/anime -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #0f172a; /* Fondo oscuro mágico */
+            background-image: radial-gradient(circle at top, #1e1b4b 0%, #0f172a 100%);
+        }
+        
+        /* Animación para cuando el texto se detiene */
+        .pop-animation {
+            animation: popText 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes popText {
+            0% { transform: scale(1); color: #f472b6; }
+            50% { transform: scale(1.1); color: #fde047; }
+            100% { transform: scale(1); color: #38bdf8; text-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
+        }
+
+        /* Estilo de la ventana del sistema (Isekai UI) */
+        .system-window {
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid #38bdf8;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.3), inset 0 0 20px rgba(56, 189, 248, 0.1);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-white flex flex-col items-center py-6 px-4">
+
+    <!-- Encabezado -->
+    <header class="text-center mb-6 mt-4 w-full max-w-md">
+        <h1 class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 mb-2 drop-shadow-lg">
+            SISTEMA ISEKAI
+        </h1>
+        <p class="text-cyan-200 text-sm md:text-base font-bold tracking-widest">CAMIÓN-SAN TE HA ELEGIDO</p>
+    </header>
+
+    <!-- Contenedor Principal: VISTA DE RULETA -->
+    <div id="view-roulette" class="w-full flex flex-col items-center max-w-md">
+        <!-- Contenedor Principal (Ventana de Estado) -->
+        <main class="system-window rounded-xl w-full p-5 flex flex-col gap-4 relative">
+        <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-cyan-400 rounded-tr-lg"></div>
+        <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-cyan-400 rounded-bl-lg"></div>
+        <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-cyan-400 rounded-br-lg"></div>
+
+        <!-- Ranura: Raza -->
+        <div class="bg-slate-800/50 rounded-lg p-3 border border-slate-700">
+            <h2 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2">
+                <span>🧬</span> Nueva Especie
+            </h2>
+            <div id="val-raza" class="text-xl font-bold text-slate-200 min-h-[1.75rem] transition-all">
+                ???
+            </div>
+        </div>
+
+        <!-- Ranura: Clase -->
+        <div class="bg-slate-800/50 rounded-lg p-3 border border-slate-700">
+            <h2 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2">
+                <span>⚔️</span> Profesión Asignada
+            </h2>
+            <div id="val-clase" class="text-xl font-bold text-slate-200 min-h-[1.75rem] transition-all">
+                ???
+            </div>
+        </div>
+
+        <!-- Ranura: Rasgo Anime -->
+        <div class="bg-slate-800/50 rounded-lg p-3 border border-slate-700">
+            <h2 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2">
+                <span>✨</span> Tropo de Protagonista
+            </h2>
+            <div id="val-rasgo" class="text-lg font-bold text-slate-200 min-h-[3.5rem] flex items-center transition-all leading-tight">
+                ???
+            </div>
+        </div>
+
+        <!-- Ranura: Defecto -->
+        <div class="bg-slate-800/50 rounded-lg p-3 border border-slate-700">
+            <h2 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2">
+                <span>💔</span> Condición Negativa
+            </h2>
+            <div id="val-defecto" class="text-lg font-bold text-slate-200 min-h-[3.5rem] flex items-center transition-all leading-tight">
+                ???
+            </div>
+        </div>
+
+        <!-- Ranura: Objeto Roto -->
+        <div class="bg-slate-800/50 rounded-lg p-3 border border-slate-700">
+            <h2 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2">
+                <span>🎒</span> Objeto Divino (O no...)
+            </h2>
+            <div id="val-objeto" class="text-lg font-bold text-slate-200 min-h-[2rem] flex items-center transition-all leading-tight">
+                ???
+            </div>
+        </div>
+        </main>
+
+        <!-- Botón Principal -->
+        <button id="spin-btn" class="mt-8 relative group w-full">
+            <!-- Sombra del botón -->
+            <div class="absolute -inset-1 bg-gradient-to-r from-red-600 to-pink-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-200 animate-pulse"></div>
+            <!-- Contenido del botón -->
+            <div class="relative w-full bg-slate-900 border-2 border-pink-500 text-white font-black text-xl py-4 px-8 rounded-full shadow-2xl transform transition-transform active:scale-95 flex justify-center items-center gap-3">
+                <span class="text-2xl">🚚</span> 
+                <span id="btn-text">¡FUI ATROPELLADO!</span>
+            </div>
+        </button>
+
+        <!-- Botón para ver la ficha (Oculto inicialmente) -->
+        <button id="details-btn" class="hidden mt-6 bg-slate-800 border-2 border-cyan-500 text-cyan-300 font-bold py-3 px-8 rounded-full shadow-[0_0_10px_rgba(56,189,248,0.3)] hover:bg-slate-700 hover:text-white transition-all transform active:scale-95 flex justify-center items-center gap-2 w-full">
+            <span>🔍</span> INSPECCIONAR FICHA
+        </button>
+    </div>
+
+    <!-- Contenedor Secundario: VISTA DE DETALLES (Oculto inicialmente) -->
+    <div id="view-details" class="hidden w-full flex flex-col items-center max-w-md">
+        <main class="system-window rounded-xl w-full p-5 flex flex-col gap-5 relative">
+            <!-- Decoración de esquinas -->
+            <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-pink-400 rounded-tl-lg"></div>
+            <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-pink-400 rounded-tr-lg"></div>
+            <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-pink-400 rounded-bl-lg"></div>
+            <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-pink-400 rounded-br-lg"></div>
+
+            <h2 class="text-2xl font-black text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-red-500 border-b border-slate-700 pb-3">
+                FICHA DE PERSONAJE
+            </h2>
+
+            <!-- Info Especie -->
+            <div>
+                <h3 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2"><span>🧬</span> Especie Registrada</h3>
+                <div class="bg-slate-800/80 rounded p-3 border-l-4 border-cyan-500">
+                    <p id="det-raza-nombre" class="text-lg font-bold text-white mb-1">...</p>
+                    <p class="text-sm text-slate-400 italic">[Aquí se conectará la descripción de tu base de datos]</p>
+                </div>
+            </div>
+
+            <!-- Info Clase -->
+            <div>
+                <h3 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2"><span>⚔️</span> Profesión Registrada</h3>
+                <div class="bg-slate-800/80 rounded p-3 border-l-4 border-blue-500">
+                    <p id="det-clase-nombre" class="text-lg font-bold text-white mb-1">...</p>
+                    <p class="text-sm text-slate-400 italic">[Aquí se conectará la descripción de tu base de datos]</p>
+                </div>
+            </div>
+
+            <!-- Info Objeto -->
+            <div>
+                <h3 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2"><span>🎒</span> Análisis del Objeto</h3>
+                <div class="bg-slate-800/80 rounded p-3 border-l-4 border-yellow-500">
+                    <p id="det-objeto-nombre" class="text-lg font-bold text-white mb-3">...</p>
+                    
+                    <div class="space-y-2">
+                        <div class="bg-green-900/20 border border-green-800/50 rounded p-2">
+                            <span class="text-xs font-bold text-green-400 uppercase">📈 Ventaja Narrativa:</span>
+                            <p class="text-sm text-slate-300 mt-1">[Se cargará de la BD]</p>
+                        </div>
+                        <div class="bg-red-900/20 border border-red-800/50 rounded p-2">
+                            <span class="text-xs font-bold text-red-400 uppercase">📉 Desventaja Narrativa:</span>
+                            <p class="text-sm text-slate-300 mt-1">[Se cargará de la BD]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <button id="back-btn" class="mt-6 bg-slate-900 border-2 border-slate-600 text-slate-300 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-slate-800 hover:text-white hover:border-slate-400 transition-all transform active:scale-95 flex justify-center items-center gap-2 w-full">
+            <span>⬅️</span> VOLVER A LA RULETA
+        </button>
+    </div>
+
+    <script>
+        // --- BASE DE DATOS LOCAL (Arrays Temporales) ---
+        const db = {
+            raza: [
+                "Humano", "Elfo", "Enano", "Mediano", "Dracónido", "Tiflin", "Semiorco", 
+                "Tabaxi", "Kenku", "Tortle", "Changeling", "Warforged", "Goblin", 
+                "Kobold", "Aasimar", "Firbolg", "Tritón", "Goliath", "Bugbear", "Yuan-ti"
+            ],
+            clase: [
+                "Bárbaro", "Bardo", "Clérigo", "Druida", "Guerrero", "Monje", 
+                "Paladín", "Explorador", "Pícaro", "Hechicero", "Brujo", "Mago", "Artífice"
+            ],
+            rasgo: [
+                "Es un titán cambiante, pero se marea si crece más de 2 metros.",
+                "Grita el nombre de sus ataques y tarda 3 turnos en cargar.",
+                "Tiene el peinado que le tapa los ojos (esconde un gran poder... o es un pervertido).",
+                "Es Tsundere con los monstruos: 'N-no es que quiera curarte, baka!'.",
+                "Sangra por la nariz cada vez que saca un 20 natural.",
+                "Jura que es el protagonista, pero sus stats dicen 'NPC de fondo'.",
+                "Corre con los brazos hacia atrás para ganar aerodinámica.",
+                "Su historia de origen es tan trágica que le da sueño a los demás."
+            ],
+            defecto: [
+                "Le tiene fobia irracional a los slimes de nivel 1.",
+                "Es daltónico: siempre confunde las pociones de vida con veneno.",
+                "Debe hacer una pose extravagante de JoJo antes de rodar iniciativa.",
+                "Habla por telepatía, pero solo para soltar spoilers de manga.",
+                "Guarda su espada en un lugar... físicamente imposible.",
+                "Tiene un pacto demoníaco, pero el demonio solo le pide que lave los platos.",
+                "Su armadura tiene físicas de pechos exageradas (incluso si es un orco)."
+            ],
+            objeto: [
+                "Un Nokia 3310 sin batería.",
+                "Una espátula nivel Dios.",
+                "La Death Note, pero con faltas de ortografía.",
+                "Un cupón de ramen expirado.",
+                "Una dakimakura (almohada) mágica que lo juzga.",
+                "Unas gafas que brillan solas cuando acomoda su plan."
+            ]
+        };
+
+        // --- LÓGICA DE LA APLICACIÓN ---
+        const spinBtn = document.getElementById('spin-btn');
+        const btnText = document.getElementById('btn-text');
+        
+        // Nuevas referencias al DOM
+        const detailsBtn = document.getElementById('details-btn');
+        const backBtn = document.getElementById('back-btn');
+        const viewRoulette = document.getElementById('view-roulette');
+        const viewDetails = document.getElementById('view-details');
+        
+        let isSpinning = false;
+
+        // Lógica para mostrar la ficha de detalles
+        detailsBtn.addEventListener('click', () => {
+            // Llenar los títulos con los resultados actuales de la ruleta
+            document.getElementById('det-raza-nombre').innerText = document.getElementById('val-raza').innerText;
+            document.getElementById('det-clase-nombre').innerText = document.getElementById('val-clase').innerText;
+            document.getElementById('det-objeto-nombre').innerText = document.getElementById('val-objeto').innerText;
+            
+            // Intercambiar vistas (ocultar ruleta, mostrar detalles)
+            viewRoulette.classList.add('hidden');
+            viewDetails.classList.remove('hidden');
+            window.scrollTo(0, 0); // Desplazar hacia arriba
+        });
+
+        // Lógica para regresar a la ruleta
+        backBtn.addEventListener('click', () => {
+            viewDetails.classList.add('hidden');
+            viewRoulette.classList.remove('hidden');
+        });
+
+        spinBtn.addEventListener('click', () => {
+            if (isSpinning) return; // Evita múltiples clics
+            
+            isSpinning = true;
+            btnText.innerText = "REENCARNANDO...";
+            spinBtn.classList.add('opacity-80', 'cursor-not-allowed');
+            spinBtn.querySelector('.animate-pulse').classList.remove('animate-pulse');
+            
+            // Ocultar el botón de detalles mientras gira
+            detailsBtn.classList.add('hidden');
+
+            // Categorías a animar
+            const slots = ['raza', 'clase', 'rasgo', 'defecto', 'objeto'];
+            const intervals = {};
+            
+            // Tiempos en los que se detendrá cada ranura (escalonado para dar suspenso)
+            const stopDurations = [1000, 1600, 2400, 3200, 4000]; 
+
+            slots.forEach((slot, index) => {
+                const el = document.getElementById(`val-${slot}`);
+                
+                // Efecto visual mientras gira
+                el.classList.remove('pop-animation', 'text-cyan-400');
+                el.classList.add('text-pink-400', 'blur-[1px]', 'scale-95');
+                
+                // Cambiar el texto rápidamente
+                intervals[slot] = setInterval(() => {
+                    const randomIndex = Math.floor(Math.random() * db[slot].length);
+                    el.innerText = db[slot][randomIndex];
+                }, 60); // Cambia cada 60ms
+
+                // Detener la ruleta en su tiempo asignado
+                setTimeout(() => {
+                    clearInterval(intervals[slot]);
+                    
+                    // Elegir el resultado final
+                    const finalIndex = Math.floor(Math.random() * db[slot].length);
+                    el.innerText = db[slot][finalIndex];
+                    
+                    // Efecto de cuando se detiene y acierta
+                    el.classList.remove('text-pink-400', 'blur-[1px]', 'scale-95');
+                    el.classList.add('pop-animation');
+
+                    // Si es la última ranura en detenerse, reactivar el botón
+                    if (index === slots.length - 1) {
+                        isSpinning = false;
+                        spinBtn.classList.remove('opacity-80', 'cursor-not-allowed');
+                        spinBtn.querySelector('div').classList.add('animate-pulse');
+                        btnText.innerText = "¡OTRA VEZ!";
+                        
+                        // Mostrar el botón de detalles con un pequeño retraso dramático
+                        setTimeout(() => {
+                            detailsBtn.classList.remove('hidden');
+                            detailsBtn.classList.add('pop-animation');
+                        }, 600);
+                    }
+                }, stopDurations[index]);
+            });
+        });
+    </script>
+</body>
+</html>
