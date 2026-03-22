@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Isekai D&D - Ruleta de Reencarnación</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Fredoka', sans-serif;
             background-color: #0f172a;
             background-image: radial-gradient(circle at top, #1e1b4b 0%, #0f172a 100%);
         }
@@ -29,6 +29,15 @@
             border: 2px solid #38bdf8;
             box-shadow: 0 0 15px rgba(56, 189, 248, 0.3), inset 0 0 20px rgba(56, 189, 248, 0.1);
             backdrop-filter: blur(10px);
+        }
+
+        /* Ocultar barra de desplazamiento en el pop-up para que se vea más limpio */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 </head>
@@ -102,13 +111,13 @@
 
         <!-- Botón para ver la ficha -->
         <button id="details-btn" class="hidden mt-6 bg-slate-800 border-2 border-cyan-500 text-cyan-300 font-bold py-3 px-8 rounded-full shadow-[0_0_10px_rgba(56,189,248,0.3)] hover:bg-slate-700 hover:text-white transition-all transform active:scale-95 flex justify-center items-center gap-2 w-full">
-            <span>🔍</span> INSPECCIONAR FICHA
+            <span>🔍</span> VER FICHA DE NUEVO
         </button>
     </div>
 
-    <!-- Contenedor Secundario: VISTA DE DETALLES -->
-    <div id="view-details" class="hidden w-full flex flex-col items-center max-w-md">
-        <main class="system-window rounded-xl w-full p-5 flex flex-col gap-5 relative">
+    <!-- Contenedor Secundario: VISTA DE DETALLES (Ahora como Pop-up/Modal) -->
+    <div id="view-details" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm">
+        <main id="modal-content" class="system-window rounded-xl w-full max-w-md p-5 flex flex-col gap-5 relative max-h-[90vh] overflow-y-auto no-scrollbar shadow-2xl transform scale-95 transition-transform duration-300">
             <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-pink-400 rounded-tl-lg"></div>
             <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-pink-400 rounded-tr-lg"></div>
             <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-pink-400 rounded-bl-lg"></div>
@@ -169,12 +178,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </main>
 
-        <button id="back-btn" class="mt-6 bg-slate-900 border-2 border-slate-600 text-slate-300 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-slate-800 hover:text-white hover:border-slate-400 transition-all transform active:scale-95 flex justify-center items-center gap-2 w-full">
-            <span>⬅️</span> VOLVER A LA RULETA
-        </button>
+                <button id="back-btn" class="mt-2 bg-slate-900 border-2 border-slate-600 text-slate-300 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-slate-800 hover:text-white hover:border-slate-400 transition-all transform active:scale-95 flex justify-center items-center gap-2 w-full">
+                    <span>❌</span> CERRAR FICHA
+                </button>
+        </main>
     </div>
 
     <script>
@@ -201,6 +209,7 @@
         const backBtn = document.getElementById('back-btn');
         const viewRoulette = document.getElementById('view-roulette');
         const viewDetails = document.getElementById('view-details');
+        const modalContent = document.getElementById('modal-content');
         
         let isSpinning = false;
 
@@ -274,14 +283,15 @@
                         setTimeout(() => {
                             detailsBtn.classList.remove('hidden');
                             detailsBtn.classList.add('pop-animation');
+                            openModal(); // Auto-abrir la ficha
                         }, 600);
                     }
                 }, stopDurations[index]);
             });
         });
 
-        // Lógica para mostrar la ficha de detalles
-        detailsBtn.addEventListener('click', () => {
+        // Función para abrir el pop-up y llenar los datos
+        function openModal() {
             // Llenar Ficha con la información extraida del JSON en currentResults
             
             // Raza
@@ -301,16 +311,22 @@
             document.getElementById('det-objeto-ventaja').innerText = currentResults.objeto.ventaja;
             document.getElementById('det-objeto-desventaja').innerText = currentResults.objeto.desventaja;
             
-            // Intercambiar vistas
-            viewRoulette.classList.add('hidden');
-            viewDetails.classList.remove('hidden');
-            window.scrollTo(0, 0); 
-        });
+            // Mostrar Modal (Pop-up) con animación
+            viewDetails.classList.remove('opacity-0', 'pointer-events-none');
+            viewDetails.classList.add('opacity-100', 'pointer-events-auto');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+        }
 
-        // Lógica para regresar a la ruleta
+        // Lógica para mostrar la ficha manualmente (si la cerraron)
+        detailsBtn.addEventListener('click', openModal);
+
+        // Lógica para cerrar el pop-up
         backBtn.addEventListener('click', () => {
-            viewDetails.classList.add('hidden');
-            viewRoulette.classList.remove('hidden');
+            viewDetails.classList.remove('opacity-100', 'pointer-events-auto');
+            viewDetails.classList.add('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
         });
 
         // Iniciar la carga al abrir la web
