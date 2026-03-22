@@ -3,77 +3,77 @@
     {
       "id": "raza_01",
       "nombre": "Humano",
-      "descripcion": "La especie más adaptable y común. Un clásico de los Isekai. Tienes un potencial ilimitado, aunque admitámoslo, es un poco aburrido."
+      "descripcion": "La especie más adaptable y común de todas, un clásico de los Isekai, tiienes un potencial ilimitado, aunque admitámoslo frente al resto de especies, es un poco aburrido."
     },
     {
       "id": "raza_02",
       "nombre": "Elfo",
-      "descripcion": "Elegantes, longevos y con gran afinidad mágica. Probablemente tengas un cabello increíble y mires a todos por encima del hombro."
+      "descripcion": "Elegantes, longevos y con gran afinidad mágica, probablemente tengas un cabello increíble y mires a todos por encima del hombro, ser racista no es requisito para ser un Elfo, (pero se agradece)."
     },
     {
       "id": "raza_03",
       "nombre": "Tabaxi",
-      "descripcion": "Humanoides felinos impulsados por la curiosidad. Tienes reflejos increíbles y una necesidad incontrolable de tirar cosas de las mesas."
+      "descripcion": "Humanoides felinos impulsados por la curiosidad, con reflejos increíbles y una necesidad incontrolable de tirar cosas de las mesas y... ¿ser matado por la curiosidad? (No lo se... cosas de gatos, innova)."
     },
     {
       "id": "raza_04",
       "nombre": "Kenku",
-      "descripcion": "Hombres cuervo que perdieron sus alas y su voz original. Solo puedes comunicarte imitando sonidos que has escuchado. Perfecto para el drama."
+      "descripcion": "Hombres cuervo que perdieron sus alas y su voz original. Solo puedes comunicarte imitando sonidos que has escuchado, perfecto para todo tipo de drama e historias de venganza (suena a que la convivencia va a ser divertidisima)."
     },
     {
       "id": "raza_05",
       "nombre": "Enano",
-      "descripcion": "Amantes de la cerveza y los martillos gigantes. Miden 1.20m pero tienen la actitud y la testarudez de un jefe final de anime."
+      "descripcion": "Amantes de la cerveza y los martillos gigantes. Miden 1.20m (jajaja, un chaneque) pero tienen la actitud y la testarudez de un jefe final (chaneque de alto valor)."
     },
     {
       "id": "raza_06",
       "nombre": "Mediano",
-      "descripcion": "Pequeños, ridículamente suertudos y siempre con hambre. Probablemente te la pases comiendo bocadillos en medio de una pelea a muerte."
+      "descripcion": "Pequeños, ridículamente suertudos y siempre con hambre (yo ese, totalmente). Probablemente te la pases comiendo bocadillos en medio de una pelea a muerte (me siguen describiendo)."
     },
     {
       "id": "raza_07",
       "nombre": "Dracónido",
-      "descripcion": "Pareces un dragón humanoide increíblemente intimidante que escupe fuego, pero en el fondo solo quieres que te rasquen detrás de los cuernos."
+      "descripcion": "Pareces un dragón humanoide increíblemente intimidante que escupe fuego (o rayos o acido y asi), pero en el fondo solo quieres que te rasquen detrás de los cuernos."
     },
     {
       "id": "raza_08",
       "nombre": "Tiflin",
-      "descripcion": "Tienes cuernos, cola y un aura innegable de 'soy el chico/chica malo'. Perfecto para el romance oscuro y edgy de cualquier Isekai."
+      "descripcion": "Tienes cuernos, cola y un aura innegable de 'soy el chico/chica malo'. Perfecto para el romance oscuro y edgy de cualquier Isekai (como *recordar insertar ejemplo que entienda la chaviza*)."
     },
     {
       "id": "raza_09",
       "nombre": "Semiorco",
-      "descripcion": "Estás mamadísimo. Tus músculos tienen músculos. Resistes la muerte por pura fuerza de voluntad y tu solución a los problemas es la violencia."
+      "descripcion": "Estás mamadísimo. Tus músculos tienen músculos. Resistes la muerte por pura fuerza de voluntad y tu solución a los problemas es la violencia (¿pagara sus impuestos con violencia? eso tiene que ser muy ilegal)."
     },
     {
       "id": "raza_10",
       "nombre": "Tortle",
-      "descripcion": "Eres una tortuga humanoide gigante. Tienes tu propia casa a cuestas y vas a tu propio ritmo, ideal para adoptar el tropo del viejo maestro sabio."
+      "descripcion": "Eres una tortuga humanoide gigante. Tienes tu propia casa a cuestas y vas a tu propio ritmo, ideal para adoptar el tropo del viejo maestro sabio (como la tortuga de Kung Fu Panda, pero con responsabilidad afectiva, ojala)."
     },
     {
       "id": "raza_11",
       "nombre": "Changeling",
-      "descripcion": "Puedes cambiar tu apariencia a voluntad. Prepárate para la crisis de identidad que siempre soñaste tener en otro mundo."
+      "descripcion": "Puedes cambiar tu apariencia a voluntad. Prepárate para la crisis de identidad que siempre soñaste tener en otro mundo (el equivalente a que te cambien de compañeros, tu decides quien ser)."
     },
     {
       "id": "raza_12",
       "nombre": "Warforged",
-      "descripcion": "Un robot mágico. Básicamente eres un mecha atrapado en un mundo de fantasía medieval. ¡Hora del crossover de géneros!"
+      "descripcion": "Un robot mágico. Básicamente eres un mecha atrapado en un mundo de fantasía medieval. ¡Hora del crossover de géneros! (Quiza con uno de estos, Dr. Stone hubiera durado nada)"
     },
     {
       "id": "raza_13",
       "nombre": "Goblin",
-      "descripcion": "Pequeño, verde y un agente del caos absoluto. Te encanta el oro brillante y causar problemas a los NPCs que solo intentan hacer su trabajo."
+      "descripcion": "Pequeño, verde y un agente del caos absoluto. Te encanta el oro brillante y causar problemas a los NPCs que solo intentan hacer su trabajo (entre nos, son los que elimino primero ;D)."
     },
     {
       "id": "raza_14",
       "nombre": "Kobold",
-      "descripcion": "Un mini-dragón cobarde pero muy inventivo. Haces trampas mejor que nadie, como todo buen protagonista estratega de supervivencia."
+      "descripcion": "Un mini-dragón cobarde pero muy inventivo. Haces trampas mejor que nadie, como todo buen protagonista estratega de supervivencia (son de los que pueden armar un megafono con una ardilla, una cuerda y un megafono)."
     },
     {
       "id": "raza_15",
       "nombre": "Aasimar",
-      "descripcion": "Mitad ángel. Brillas en la oscuridad y probablemente tengas un complejo de mesías, alas majestuosas y un destino trágico de salvar el mundo."
+      "descripcion": "Mitad ángel. Brillas en la oscuridad y probablemente tengas un complejo insoportable de mesías, alas majestuosas y un destino trágico de salvar el mundo."
     },
     {
       "id": "raza_16",
