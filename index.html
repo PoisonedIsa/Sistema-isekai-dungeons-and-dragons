@@ -230,6 +230,19 @@
     <script>
         // --- CONEXIÓN A BASE DE DATOS (GITHUB) ---
         const jsonUrl = 'https://raw.githubusercontent.com/PoisonedIsa/Sistema-isekai-dungeons-and-dragons/main/recursos/base%20de%20datos.json';
+        const whooshSoundUrl = 'https://raw.githubusercontent.com/PoisonedIsa/Sistema-isekai-dungeons-and-dragons/main/recursos/whoosh1.ogg';
+        const cardSlideSoundUrl = 'https://raw.githubusercontent.com/PoisonedIsa/Sistema-isekai-dungeons-and-dragons/main/recursos/cardSlide1.ogg';
+        const chipsSoundUrl = 'https://raw.githubusercontent.com/PoisonedIsa/Sistema-isekai-dungeons-and-dragons/main/recursos/chips2.ogg';
+        const multHitSoundUrl = 'https://raw.githubusercontent.com/PoisonedIsa/Sistema-isekai-dungeons-and-dragons/main/recursos/multhit2.ogg';
+        
+        // Precargar el sonido
+        const whooshSound = new Audio(whooshSoundUrl);
+        const cardSlideSound = new Audio(cardSlideSoundUrl);
+        cardSlideSound.volume = 0.4; // Volumen un poco más bajo para que no sature
+        const chipsSound = new Audio(chipsSoundUrl);
+        chipsSound.volume = 0.6; // Sonido de fijación
+        const multHitSound = new Audio(multHitSoundUrl);
+        multHitSound.volume = 0.8; // Sonido final de todas las ruletas completadas
         
         let dbData = null; 
         let currentResults = {}; 
@@ -320,7 +333,14 @@
             
             detailsBtn.classList.add('hidden');
             const intervals = {};
-            const stopDurations = [1000, 1600, 2400, 3200, 4000]; 
+            // Tiempos incrementados en 1 segundo (1000ms) cada uno
+            const stopDurations = [2000, 2600, 3400, 4200, 5000]; 
+
+            // Efecto de sonido de barajar mientras gira (cada ~250ms)
+            const spinSoundInterval = setInterval(() => {
+                cardSlideSound.currentTime = 0;
+                cardSlideSound.play().catch(e => console.log("Audio bloqueado:", e));
+            }, 250);
 
             slotConfig.forEach((config, index) => {
                 const el = document.getElementById(`val-${config.id}`);
@@ -343,6 +363,10 @@
                 setTimeout(() => {
                     clearInterval(intervals[config.id]);
                     
+                    // Reproducir sonido de fijación de resultado
+                    chipsSound.currentTime = 0;
+                    chipsSound.play().catch(e => console.log("Audio bloqueado:", e));
+                    
                     const finalItem = dataArray[Math.floor(Math.random() * dataArray.length)];
                     currentResults[config.id] = finalItem; 
                     el.innerText = finalItem[config.displayField];
@@ -356,6 +380,12 @@
                     el.classList.add('resultado--nuevo');
 
                     if (index === slotConfig.length - 1) {
+                        clearInterval(spinSoundInterval); // Detener el sonido al finalizar
+                        
+                        // Reproducir sonido especial de finalización de ruleta
+                        multHitSound.currentTime = 0;
+                        multHitSound.play().catch(e => console.log("Audio bloqueado:", e));
+                        
                         isSpinning = false;
                         spinBtn.classList.remove('opacity-80', 'cursor-not-allowed');
                         spinBtn.querySelector('.btn-glow').classList.add('animate-pulse');
@@ -377,6 +407,10 @@
         // Función para abrir el pop-up y llenar los datos
         function openModal() {
             if(!currentResults.raza) return; // Prevenir si no hay datos
+            
+            // Reproducir el efecto de sonido "whoosh"
+            whooshSound.currentTime = 0; // Reiniciar el audio por si se abre varias veces rápido
+            whooshSound.play().catch(err => console.log("Audio bloqueado o no encontrado:", err));
             
             // Llenar Ficha con la información extraida
             document.getElementById('det-raza-nombre').innerText = currentResults.raza.nombre;
