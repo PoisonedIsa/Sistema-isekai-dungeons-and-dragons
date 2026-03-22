@@ -153,6 +153,22 @@
                 </div>
             </div>
 
+            <!-- Info Tropo -->
+            <div>
+                <h3 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2"><span>✨</span> Tropo de Protagonista</h3>
+                <div class="bg-slate-800/80 rounded p-3 border-l-4 border-purple-500">
+                    <p id="det-rasgo-nombre" class="text-base font-bold text-white leading-tight">...</p>
+                </div>
+            </div>
+
+            <!-- Info Defecto -->
+            <div>
+                <h3 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2"><span>💔</span> Condición Negativa</h3>
+                <div class="bg-slate-800/80 rounded p-3 border-l-4 border-red-500">
+                    <p id="det-defecto-nombre" class="text-base font-bold text-white leading-tight">...</p>
+                </div>
+            </div>
+
             <!-- Info Objeto -->
             <div>
                 <h3 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2"><span>🎒</span> Análisis del Objeto</h3>
@@ -237,6 +253,8 @@
             document.getElementById('det-raza-nombre').innerText = document.getElementById('val-raza').innerText;
             document.getElementById('det-clase-nombre').innerText = document.getElementById('val-clase').innerText;
             document.getElementById('det-objeto-nombre').innerText = document.getElementById('val-objeto').innerText;
+            document.getElementById('det-rasgo-nombre').innerText = document.getElementById('val-rasgo').innerText;
+            document.getElementById('det-defecto-nombre').innerText = document.getElementById('val-defecto').innerText;
             
             // Intercambiar vistas (ocultar ruleta, mostrar detalles)
             viewRoulette.classList.add('hidden');
