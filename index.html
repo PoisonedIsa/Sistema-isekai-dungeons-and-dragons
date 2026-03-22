@@ -55,6 +55,27 @@
             100% { transform: scale(1); }
         }
 
+        @keyframes vibrate {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            50% { transform: translateX(2px); }
+            75% { transform: translateX(-1px); }
+        }
+
+        .dice-shake {
+            animation: vibrate 0.25s ease-in-out;
+        }
+
+        .clip-hexa {
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        .blur-horizontal {
+            filter: blur(1.5px);
+            transform: scaleX(1.4);
+            transition: all 0.1s ease;
+        }
+
         /* Interfaz limpia y mágica */
         .system-window {
             background: rgba(15, 23, 42, 0.9);
@@ -84,7 +105,7 @@
     <div class="stars"></div>
 
     <!-- Encabezado -->
-    <header class="text-center mb-6 mt-4 w-full max-w-md sm:max-w-lg">
+    <header class="text-center mb-6 mt-4 w-full max-w-md sm:max-w-lg bg-slate-900/40 rounded-2xl py-4 px-3 border border-indigo-900/40">
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#22d3ee] to-[#6366f1] mb-2 drop-shadow-[0_0_10px_rgba(99,102,241,0.5)]">
             SISTEMA ISEKAI
         </h1>
@@ -98,7 +119,7 @@
         <main class="system-window rounded-2xl w-full p-5 sm:p-6 flex flex-col gap-4 sm:gap-5 relative">
             
             <!-- Ranura: Raza -->
-            <div class="bg-slate-900/60 rounded-lg p-4 border border-indigo-900/60">
+            <div class="bg-slate-900/60 rounded-lg p-4 border border-indigo-800/40">
                 <h2 class="text-[0.75rem] md:text-xs text-indigo-300 uppercase tracking-[0.2em] mb-1.5 flex items-center gap-2">
                     <span>🧬</span> Nueva Especie
                 </h2>
@@ -106,7 +127,7 @@
             </div>
 
             <!-- Ranura: Clase -->
-            <div class="bg-slate-900/60 rounded-lg p-4 border border-indigo-900/60">
+            <div class="bg-slate-900/60 rounded-lg p-4 border border-indigo-800/40">
                 <h2 class="text-[0.75rem] md:text-xs text-indigo-300 uppercase tracking-[0.2em] mb-1.5 flex items-center gap-2">
                     <span>⚔️</span> Profesión Asignada
                 </h2>
@@ -114,7 +135,7 @@
             </div>
 
             <!-- Ranura: Rasgo Anime -->
-            <div class="bg-slate-900/60 rounded-lg p-4 border border-indigo-900/60">
+            <div class="bg-slate-900/60 rounded-lg p-4 border border-indigo-800/40">
                 <h2 class="text-[0.75rem] md:text-xs text-indigo-300 uppercase tracking-[0.2em] mb-1.5 flex items-center gap-2">
                     <span>✨</span> Tropo de Protagonista
                 </h2>
@@ -122,7 +143,7 @@
             </div>
 
             <!-- Ranura: Defecto -->
-            <div class="bg-slate-900/60 rounded-lg p-4 border border-indigo-900/60">
+            <div class="bg-slate-900/60 rounded-lg p-4 border border-indigo-800/40">
                 <h2 class="text-[0.75rem] md:text-xs text-indigo-300 uppercase tracking-[0.2em] mb-1.5 flex items-center gap-2">
                     <span>💔</span> Condición Negativa
                 </h2>
@@ -130,7 +151,7 @@
             </div>
 
             <!-- Ranura: Objeto Roto -->
-            <div class="bg-slate-900/60 rounded-lg p-4 border border-indigo-900/60">
+            <div class="bg-slate-900/60 rounded-lg p-4 border border-indigo-800/40">
                 <h2 class="text-[0.75rem] md:text-xs text-indigo-300 uppercase tracking-[0.2em] mb-1.5 flex items-center gap-2">
                     <span>🎒</span> Objeto Divino (O no...)
                 </h2>
@@ -148,20 +169,21 @@
         </button>
 
         <!-- Botón para ver la ficha -->
-        <button id="details-btn" class="hidden mt-6 bg-slate-800 border-2 border-cyan-500 text-cyan-300 font-bold py-3 px-8 rounded-full shadow-[0_0_10px_rgba(56,189,248,0.3)] hover:bg-slate-700 hover:text-white transition-all transform active:scale-95 flex justify-center items-center gap-2 w-full">
-            <span>🔍</span> <span class="text-xs md:text-sm tracking-[0.18em] uppercase">Ver ficha de personaje</span>
+        <button id="details-btn" class="hidden mt-6 bg-slate-900/70 border border-cyan-400/70 text-cyan-200 font-semibold py-3 px-6 rounded-full shadow-md hover:bg-slate-800 hover:text-white transition-all active:scale-95 flex justify-center items-center gap-2 w-full text-xs md:text-sm tracking-[0.18em] uppercase">
+            <span>🔍</span> <span>Ver ficha de personaje</span>
         </button>
     </div>
 
     <!-- Contenedor Secundario: VISTA DE DETALLES (Pop-up/Modal) -->
     <div id="view-details" class="fixed inset-0 bg-[#050816]/90 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm">
+        
+        <!-- Botón X Flotante para cerrar (Tono de desventaja narrativa) -->
+        <button id="back-btn" class="fixed top-4 right-4 sm:top-8 sm:right-8 w-12 h-12 bg-red-900/40 border-2 border-red-700/50 rounded-full flex items-center justify-center text-red-400 hover:text-white hover:bg-red-600 hover:border-red-400 hover:shadow-[0_0_20px_rgba(239,68,68,0.6)] transition-all z-[60] shadow-[0_4px_10px_rgba(0,0,0,0.5)] text-xl cursor-pointer transform hover:scale-110">
+            ✕
+        </button>
+
         <main id="modal-content" class="system-window rounded-xl w-full max-w-md p-5 sm:p-6 flex flex-col gap-5 relative max-h-[90vh] overflow-y-auto no-scrollbar shadow-[0_0_30px_rgba(99,102,241,0.4)] transform scale-95 transition-transform duration-300">
             
-            <!-- Botón X para cerrar en la esquina -->
-            <button id="back-btn" class="absolute top-3 right-3 w-8 h-8 bg-slate-900 border border-indigo-500/50 rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-red-500 hover:border-red-400 transition-colors z-20 shadow-lg text-lg cursor-pointer">
-                ✕
-            </button>
-
             <!-- Esquinas mágicas SOLO en el modal -->
             <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#facc15] rounded-tl-lg"></div>
             <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#facc15] rounded-tr-lg"></div>
@@ -212,20 +234,56 @@
                 <div class="bg-slate-800/80 rounded p-3 border-l-4 border-yellow-500">
                     <p id="det-objeto-nombre" class="text-base md:text-lg font-bold text-white mb-3">...</p>
                     
+                    <!-- Faltaba este div "space-y-3" y el bloque de Ventaja -->
                     <div class="space-y-3">
-                        <div class="bg-green-900/30 border border-green-700/50 rounded p-3">
+                        <div class="bg-slate-900/60 border border-green-500/20 border-l-4 border-l-green-500 rounded p-3">
                             <span class="text-xs font-bold text-green-400 uppercase tracking-wider">📈 Ventaja Narrativa:</span>
                             <p id="det-objeto-ventaja" class="text-sm md:text-base text-slate-200 mt-1.5 leading-relaxed">...</p>
                         </div>
-                        <div class="bg-red-900/30 border border-red-700/50 rounded p-3">
+                        <div class="bg-slate-900/60 border border-red-500/20 border-l-4 border-l-red-500 rounded p-3">
                             <span class="text-xs font-bold text-red-400 uppercase tracking-wider">📉 Desventaja Narrativa:</span>
                             <p id="det-objeto-desventaja" class="text-sm md:text-base text-slate-200 mt-1.5 leading-relaxed">...</p>
                         </div>
                     </div>
+
                 </div>
             </div>
+
+            <!-- Sección: Dado d20 -->
+            <section class="mt-4 pt-3 border-t border-slate-700/60">
+                <h3 class="text-xs text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2">
+                    🎲 Dado d20
+                </h3>
+                <p class="text-[0.75rem] md:text-sm text-slate-400 mb-3">
+                    Úsalo cuando se solicite una tirada rápida durante la escena.
+                </p>
+                <div class="flex items-center gap-4">
+                    <!-- “Foto” del dado (icono estilizado como hexágono simulando un d20) -->
+                    <button id="d20-btn" class="relative w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-cyan-400 to-indigo-600 shadow-xl flex items-center justify-center overflow-hidden transition-transform active:scale-95 clip-hexa group">
+                        <!-- Carita del dado -->
+                        <div class="absolute inset-[3px] bg-slate-950/90 flex items-center justify-center clip-hexa group-hover:bg-slate-900 transition-colors">
+                            <span id="d20-value" class="text-xl md:text-2xl font-black text-cyan-200 drop-shadow inline-block">
+                                20
+                            </span>
+                        </div>
+                    </button>
+                    <!-- Resultado en texto -->
+                    <div class="flex flex-col text-xs md:text-sm text-slate-200 overflow-hidden">
+                        <span class="uppercase tracking-[0.18em] text-slate-500 text-[0.7rem]">Resultado</span>
+                        <span id="d20-result-value" class="text-2xl md:text-3xl font-black text-amber-300 drop-shadow-sm inline-block min-w-[4rem]">
+                            –
+                        </span>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
+
+    <!-- Pie de página -->
+    <footer class="mt-auto w-full text-center pt-8 pb-2 text-slate-500/60 text-[10px] sm:text-xs tracking-wider font-medium">
+        Ningún camión fue dañado en la creación de esta herramienta<br>
+        Diseñado por Poisoned Isa
+    </footer>
 
     <script>
         // --- CONEXIÓN A BASE DE DATOS (GITHUB) ---
@@ -235,14 +293,57 @@
         const chipsSoundUrl = 'https://raw.githubusercontent.com/PoisonedIsa/Sistema-isekai-dungeons-and-dragons/main/recursos/chips2.ogg';
         const multHitSoundUrl = 'https://raw.githubusercontent.com/PoisonedIsa/Sistema-isekai-dungeons-and-dragons/main/recursos/multhit2.ogg';
         
-        // Precargar el sonido
-        const whooshSound = new Audio(whooshSoundUrl);
-        const cardSlideSound = new Audio(cardSlideSoundUrl);
-        cardSlideSound.volume = 0.4; // Volumen un poco más bajo para que no sature
-        const chipsSound = new Audio(chipsSoundUrl);
-        chipsSound.volume = 0.6; // Sonido de fijación
-        const multHitSound = new Audio(multHitSoundUrl);
-        multHitSound.volume = 0.8; // Sonido final de todas las ruletas completadas
+        // Precargar sonidos como Blob en memoria para eliminar latencia de red y permitir clones
+        const audioVault = {};
+        
+        async function loadAudioBlob(name, url, vol) {
+            try {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                const audio = new Audio(URL.createObjectURL(blob));
+                audio.volume = vol;
+                audioVault[name] = audio;
+            } catch (error) {
+                // Fallback normal si el fetch falla
+                const audio = new Audio(url);
+                audio.volume = vol;
+                audioVault[name] = audio;
+            }
+        }
+
+        loadAudioBlob('whoosh', whooshSoundUrl, 1);
+        loadAudioBlob('cardSlide', cardSlideSoundUrl, 0.4);
+        loadAudioBlob('chips', chipsSoundUrl, 0.6);
+        loadAudioBlob('multHit', multHitSoundUrl, 0.8);
+
+        // Reproducir sonido reiniciando su tiempo (evita sobreposiciones ruidosas)
+        function playSound(name) {
+            if(audioVault[name]) {
+                audioVault[name].currentTime = 0;
+                audioVault[name].play().catch(e => console.log("Audio bloqueado:", e));
+            }
+        }
+
+        // Detener sonido por completo
+        function stopSound(name) {
+            if(audioVault[name]) {
+                audioVault[name].pause();
+                audioVault[name].currentTime = 0;
+            }
+        }
+
+        // Desbloquear audio en móviles (requiere interacción del usuario)
+        let audioUnlocked = false;
+        function unlockAudio() {
+            if (audioUnlocked) return;
+            Object.values(audioVault).forEach(audio => {
+                audio.play().then(() => {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }).catch(() => {});
+            });
+            audioUnlocked = true;
+        }
         
         let dbData = null; 
         let currentResults = {}; 
@@ -264,6 +365,9 @@
         const viewRoulette = document.getElementById('view-roulette');
         const viewDetails = document.getElementById('view-details');
         const modalContent = document.getElementById('modal-content');
+        const d20Btn = document.getElementById('d20-btn');
+        const d20Value = document.getElementById('d20-value');
+        const d20ResultValue = document.getElementById('d20-result-value');
         
         let isSpinning = false;
 
@@ -324,6 +428,8 @@
 
         // Lógica de Giro
         spinBtn.addEventListener('click', () => {
+            unlockAudio(); // Desbloquear sonidos al primer clic para evitar retrasos
+
             if (isSpinning || !dbData) return; 
             
             isSpinning = true;
@@ -336,11 +442,10 @@
             // Tiempos incrementados en 1 segundo (1000ms) cada uno
             const stopDurations = [2000, 2600, 3400, 4200, 5000]; 
 
-            // Efecto de sonido de barajar mientras gira (cada ~250ms)
+            // Efecto de sonido de barajar (reinicia el audio para dar efecto de "tick" sin saturar)
             const spinSoundInterval = setInterval(() => {
-                cardSlideSound.currentTime = 0;
-                cardSlideSound.play().catch(e => console.log("Audio bloqueado:", e));
-            }, 250);
+                playSound('cardSlide');
+            }, 180);
 
             slotConfig.forEach((config, index) => {
                 const el = document.getElementById(`val-${config.id}`);
@@ -363,9 +468,8 @@
                 setTimeout(() => {
                     clearInterval(intervals[config.id]);
                     
-                    // Reproducir sonido de fijación de resultado
-                    chipsSound.currentTime = 0;
-                    chipsSound.play().catch(e => console.log("Audio bloqueado:", e));
+                    // Reproducir sonido de fijación de resultado sin latencia
+                    playSound('chips');
                     
                     const finalItem = dataArray[Math.floor(Math.random() * dataArray.length)];
                     currentResults[config.id] = finalItem; 
@@ -380,11 +484,11 @@
                     el.classList.add('resultado--nuevo');
 
                     if (index === slotConfig.length - 1) {
-                        clearInterval(spinSoundInterval); // Detener el sonido al finalizar
+                        clearInterval(spinSoundInterval); // Detener intervalo
+                        stopSound('cardSlide'); // Apagar sonido de giro por completo
                         
                         // Reproducir sonido especial de finalización de ruleta
-                        multHitSound.currentTime = 0;
-                        multHitSound.play().catch(e => console.log("Audio bloqueado:", e));
+                        playSound('multHit');
                         
                         isSpinning = false;
                         spinBtn.classList.remove('opacity-80', 'cursor-not-allowed');
@@ -398,7 +502,7 @@
                             detailsBtn.classList.remove('hidden');
                             detailsBtn.classList.add('resultado--nuevo');
                             openModal(); 
-                        }, 600);
+                        }, 1300); // Delay reducido de 1.8s a 1.3s para fluidez
                     }
                 }, stopDurations[index]);
             });
@@ -408,9 +512,8 @@
         function openModal() {
             if(!currentResults.raza) return; // Prevenir si no hay datos
             
-            // Reproducir el efecto de sonido "whoosh"
-            whooshSound.currentTime = 0; // Reiniciar el audio por si se abre varias veces rápido
-            whooshSound.play().catch(err => console.log("Audio bloqueado o no encontrado:", err));
+            // Reproducir el efecto de sonido "whoosh" al instante
+            playSound('whoosh');
             
             // Llenar Ficha con la información extraida
             document.getElementById('det-raza-nombre').innerText = currentResults.raza.nombre;
@@ -441,6 +544,62 @@
             modalContent.classList.remove('scale-100');
             modalContent.classList.add('scale-95');
         });
+
+        // Lógica del dado d20 en la ficha
+        let isRollingD20 = false;
+        if (d20Btn) {
+            d20Btn.addEventListener('click', () => {
+                if (isRollingD20) return; // Evita que se presione múltiple veces
+                isRollingD20 = true;
+                
+                let counter = 0;
+                
+                // Clases de animación inicial (desenfoque horizontal)
+                d20Value.classList.add('blur-horizontal', 'text-indigo-400');
+                d20Value.classList.remove('text-cyan-200', 'resultado--nuevo');
+                
+                d20ResultValue.textContent = "Girando...";
+                d20ResultValue.classList.add('text-slate-400', 'animate-pulse');
+                d20ResultValue.classList.remove('text-amber-300', 'resultado--nuevo');
+
+                // Intervalo de giro
+                const rollInterval = setInterval(() => {
+                    const roll = Math.floor(Math.random() * 20) + 1;
+                    d20Value.textContent = roll;
+                    
+                    // Sonido rápido de cartas
+                    if (counter % 2 === 0) playSound('cardSlide'); 
+                    counter++;
+                    
+                    // Vibración horizontal continua aleatoria
+                    d20Btn.style.transform = `translateX(${Math.random() * 6 - 3}px)`;
+                }, 80);
+
+                // Detener el dado después de 1.5s
+                setTimeout(() => {
+                    clearInterval(rollInterval);
+                    
+                    const finalRoll = Math.floor(Math.random() * 20) + 1;
+                    d20Value.textContent = finalRoll;
+                    d20ResultValue.textContent = finalRoll;
+                    
+                    // Restaurar botón a su posición original
+                    d20Btn.style.transform = 'translateX(0)';
+                    
+                    // Remover estilos de giro y dar pop de finalización
+                    d20Value.classList.remove('blur-horizontal', 'text-indigo-400');
+                    d20Value.classList.add('text-cyan-200', 'resultado--nuevo');
+                    
+                    d20ResultValue.classList.remove('text-slate-400', 'animate-pulse');
+                    d20ResultValue.classList.add('text-amber-300', 'resultado--nuevo');
+                    
+                    // Sonido final
+                    playSound('chips');
+                    
+                    isRollingD20 = false;
+                }, 1500);
+            });
+        }
 
         // Iniciar
         fetchDatabase();
