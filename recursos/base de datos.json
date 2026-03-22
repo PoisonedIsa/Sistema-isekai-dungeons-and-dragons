@@ -1,1 +1,273 @@
-i
+{
+  "razas": [
+    {
+      "id": "raza_01",
+      "nombre": "Humano",
+      "descripcion": "La especie más adaptable y común. Un clásico de los Isekai. Tienes un potencial ilimitado, aunque admitámoslo, es un poco aburrido."
+    },
+    {
+      "id": "raza_02",
+      "nombre": "Elfo",
+      "descripcion": "Elegantes, longevos y con gran afinidad mágica. Probablemente tengas un cabello increíble y mires a todos por encima del hombro."
+    },
+    {
+      "id": "raza_03",
+      "nombre": "Tabaxi",
+      "descripcion": "Humanoides felinos impulsados por la curiosidad. Tienes reflejos increíbles y una necesidad incontrolable de tirar cosas de las mesas."
+    },
+    {
+      "id": "raza_04",
+      "nombre": "Kenku",
+      "descripcion": "Hombres cuervo que perdieron sus alas y su voz original. Solo puedes comunicarte imitando sonidos que has escuchado. Perfecto para el drama."
+    },
+    {
+      "id": "raza_05",
+      "nombre": "Enano",
+      "descripcion": "Amantes de la cerveza y los martillos gigantes. Miden 1.20m pero tienen la actitud y la testarudez de un jefe final de anime."
+    },
+    {
+      "id": "raza_06",
+      "nombre": "Mediano",
+      "descripcion": "Pequeños, ridículamente suertudos y siempre con hambre. Probablemente te la pases comiendo bocadillos en medio de una pelea a muerte."
+    },
+    {
+      "id": "raza_07",
+      "nombre": "Dracónido",
+      "descripcion": "Pareces un dragón humanoide increíblemente intimidante que escupe fuego, pero en el fondo solo quieres que te rasquen detrás de los cuernos."
+    },
+    {
+      "id": "raza_08",
+      "nombre": "Tiflin",
+      "descripcion": "Tienes cuernos, cola y un aura innegable de 'soy el chico/chica malo'. Perfecto para el romance oscuro y edgy de cualquier Isekai."
+    },
+    {
+      "id": "raza_09",
+      "nombre": "Semiorco",
+      "descripcion": "Estás mamadísimo. Tus músculos tienen músculos. Resistes la muerte por pura fuerza de voluntad y tu solución a los problemas es la violencia."
+    },
+    {
+      "id": "raza_10",
+      "nombre": "Tortle",
+      "descripcion": "Eres una tortuga humanoide gigante. Tienes tu propia casa a cuestas y vas a tu propio ritmo, ideal para adoptar el tropo del viejo maestro sabio."
+    },
+    {
+      "id": "raza_11",
+      "nombre": "Changeling",
+      "descripcion": "Puedes cambiar tu apariencia a voluntad. Prepárate para la crisis de identidad que siempre soñaste tener en otro mundo."
+    },
+    {
+      "id": "raza_12",
+      "nombre": "Warforged",
+      "descripcion": "Un robot mágico. Básicamente eres un mecha atrapado en un mundo de fantasía medieval. ¡Hora del crossover de géneros!"
+    },
+    {
+      "id": "raza_13",
+      "nombre": "Goblin",
+      "descripcion": "Pequeño, verde y un agente del caos absoluto. Te encanta el oro brillante y causar problemas a los NPCs que solo intentan hacer su trabajo."
+    },
+    {
+      "id": "raza_14",
+      "nombre": "Kobold",
+      "descripcion": "Un mini-dragón cobarde pero muy inventivo. Haces trampas mejor que nadie, como todo buen protagonista estratega de supervivencia."
+    },
+    {
+      "id": "raza_15",
+      "nombre": "Aasimar",
+      "descripcion": "Mitad ángel. Brillas en la oscuridad y probablemente tengas un complejo de mesías, alas majestuosas y un destino trágico de salvar el mundo."
+    },
+    {
+      "id": "raza_16",
+      "nombre": "Firbolg",
+      "descripcion": "Un gigante amable del bosque. Tienes la habilidad de hacerte invisible cuando te da ansiedad social. Definitivamente la raza más relatable."
+    },
+    {
+      "id": "raza_17",
+      "nombre": "Tritón",
+      "descripcion": "Vienes de gobernar los mares y no entiendes nada de cómo funciona la superficie. Te la pasas exigiendo respeto a los charcos y fuentes."
+    },
+    {
+      "id": "raza_18",
+      "nombre": "Goliath",
+      "descripcion": "Mides casi tres metros, estás calvo y eres excesivamente competitivo. Probablemente levantes carretas enteras solo porque estabas aburrido."
+    },
+    {
+      "id": "raza_19",
+      "nombre": "Bugbear",
+      "descripcion": "Un duende peludo gigante con brazos elásticos. Eres el rey del ataque furtivo... aunque seas del tamaño de un ropero."
+    },
+    {
+      "id": "raza_20",
+      "nombre": "Yuan-ti",
+      "descripcion": "Gente serpiente. Tu raza carece de emociones reales, lo que te convierte instantáneamente en el Kuudere definitivo del grupo."
+    }
+  ],
+  "clases": [
+    {
+      "id": "clase_01",
+      "nombre": "Bárbaro",
+      "descripcion": "Guerreros feroces que canalizan su furia primigenia en combate. Tu solución a los problemas mágicos es golpearlos muy, muy fuerte."
+    },
+    {
+      "id": "clase_02",
+      "nombre": "Bardo",
+      "descripcion": "Maestros del canto, la oratoria y la magia. Básicamente eres un idol en un mundo de fantasía, y tu música puede curar o seducir dragones."
+    },
+    {
+      "id": "clase_03",
+      "nombre": "Mago",
+      "descripcion": "Un erudito de la magia arcana. Tienes el poder de alterar la realidad, pero mueres si alguien te estornuda muy fuerte (1d6 de daño)."
+    },
+    {
+      "id": "clase_04",
+      "nombre": "Clérigo",
+      "descripcion": "El sanador del grupo. Tienes el poder de los dioses, pero te la pasas suspirando porque tus compañeros no dejan de lanzarse al peligro."
+    },
+    {
+      "id": "clase_05",
+      "nombre": "Druida",
+      "descripcion": "Te transformas en animales y controlas la naturaleza. En este Isekai, serías el que se hace amigo de los monstruos en vez de pelear con ellos."
+    },
+    {
+      "id": "clase_06",
+      "nombre": "Guerrero",
+      "descripcion": "Pegas muchos espadazos. No tienes magia innata, pero lo compensas rompiendo tus límites físicos a base de gritos y fuerza de voluntad."
+    },
+    {
+      "id": "clase_07",
+      "nombre": "Monje",
+      "descripcion": "Rompes paredes a puñetazos desnudos y corres por el agua. Ignoras las reglas de la física como si de verdad estuvieras en un anime Shonen."
+    },
+    {
+      "id": "clase_08",
+      "nombre": "Paladín",
+      "descripcion": "Un caballero brillante con moral inquebrantable. Eres el prota idealista que da discursos sobre el poder de la amistad antes de usar Castigo Divino."
+    },
+    {
+      "id": "clase_09",
+      "nombre": "Explorador",
+      "descripcion": "Tienes un arco, posiblemente una mascota mágica y mucho odio por un tipo de monstruo en específico. El típico lobo solitario del bosque."
+    },
+    {
+      "id": "clase_10",
+      "nombre": "Pícaro",
+      "descripcion": "Vistes de negro, te escondes en las sombras y siempre tienes un pasado oscuro. Eres el 'edgelord' oficial del equipo."
+    },
+    {
+      "id": "clase_11",
+      "nombre": "Hechicero",
+      "descripcion": "No estudiaste nada, tus poderes son un regalo de tu línea de sangre (o puro guionazo). Explotas cosas lanzando fuego a lo loco."
+    },
+    {
+      "id": "clase_12",
+      "nombre": "Brujo",
+      "descripcion": "Conseguiste tus poderes mágicos firmando un contrato dudoso con una entidad cósmica (básicamente, tu Sugar Daddy mágico)."
+    },
+    {
+      "id": "clase_13",
+      "nombre": "Artífice",
+      "descripcion": "Tienes un arma de fuego en un mundo donde usan espadas. El prota isekai que decidió traer la revolución industrial al medioevo."
+    }
+  ],
+  "rasgos": [
+    {
+      "id": "rasgo_01",
+      "texto": "Es un titán cambiante, pero se marea si crece más de 2 metros."
+    },
+    {
+      "id": "rasgo_02",
+      "texto": "Grita el nombre de sus ataques y tarda 3 turnos en cargar."
+    },
+    {
+      "id": "rasgo_03",
+      "texto": "Tiene el peinado que le tapa los ojos (esconde un gran poder... o es un pervertido)."
+    },
+    {
+      "id": "rasgo_04",
+      "texto": "Es Tsundere con los monstruos: 'N-no es que quiera curarte, baka!'."
+    },
+    {
+      "id": "rasgo_05",
+      "texto": "Sangra por la nariz cada vez que saca un 20 natural."
+    },
+    {
+      "id": "rasgo_06",
+      "texto": "Jura que es el protagonista, pero sus stats dicen 'NPC de fondo'."
+    },
+    {
+      "id": "rasgo_07",
+      "texto": "Corre con los brazos hacia atrás para ganar aerodinámica Ninja."
+    },
+    {
+      "id": "rasgo_08",
+      "texto": "Su historia de origen es tan trágica que le da sueño a los demás."
+    }
+  ],
+  "defectos": [
+    {
+      "id": "defecto_01",
+      "texto": "Le tiene fobia irracional a los slimes de nivel 1."
+    },
+    {
+      "id": "defecto_02",
+      "texto": "Es daltónico: siempre confunde las pociones de vida con veneno."
+    },
+    {
+      "id": "defecto_03",
+      "texto": "Debe hacer una pose extravagante de JoJo antes de rodar iniciativa."
+    },
+    {
+      "id": "defecto_04",
+      "texto": "Habla por telepatía, pero solo para soltar spoilers de manga a sus aliados."
+    },
+    {
+      "id": "defecto_05",
+      "texto": "Guarda su espada en un lugar... físicamente imposible y preocupante."
+    },
+    {
+      "id": "defecto_06",
+      "texto": "Tiene un pacto demoníaco, pero el demonio solo le exige que lave los platos a tiempo."
+    },
+    {
+      "id": "defecto_07",
+      "texto": "Su armadura tiene físicas de pechos exageradas (incluso si es un orco hombre o una armadura de placas)."
+    }
+  ],
+  "objetos": [
+    {
+      "id": "obj_01",
+      "nombre": "Un Nokia 3310 sin batería.",
+      "ventaja": "Es materialmente indestructible. Puede usarse como un arma contundente mágica o para bloquear el aliento de un dragón sin recibir rasguños.",
+      "desventaja": "No tiene batería, así que no sirve para llamar por ayuda, ni tiene linterna, ni puedes jugar a la viborita mientras haces guardia."
+    },
+    {
+      "id": "obj_02",
+      "nombre": "Una espátula nivel Dios.",
+      "ventaja": "Cualquier comida preparada con esto restaura todos los puntos de golpe y otorga bendiciones temporales a tu equipo.",
+      "desventaja": "Te obliga a hablar como un chef francés muy enojado mientras cocinas, arruinando cualquier intento de campamento sigiloso."
+    },
+    {
+      "id": "obj_03",
+      "nombre": "La Death Note, pero con faltas de ortografía.",
+      "ventaja": "Puedes eliminar a cualquier enemigo si escribes su nombre correctamente en ella pensando en su rostro.",
+      "desventaja": "Si escribes mal el nombre del monstruo, el efecto se te devuelve a ti. Y los nombres de los monstruos de D&D son MUY difíciles de escribir."
+    },
+    {
+      "id": "obj_04",
+      "nombre": "Un cupón de ramen expirado.",
+      "ventaja": "Alcanza niveles absurdos de nostalgia. Te permite convocar una lluvia de fideos calientes que quema a los enemigos en un radio de 6 metros.",
+      "desventaja": "El olor a sopa barata atrae a todas las bestias hambrientas en 2 kilómetros a la redonda hacia tu ubicación."
+    },
+    {
+      "id": "obj_05",
+      "nombre": "Una dakimakura (almohada) mágica.",
+      "ventaja": "Abrazarla durante un descanso corto te otorga resistencia al daño emocional y recuperas el doble de puntos de golpe.",
+      "desventaja": "La almohada está encantada con consciencia propia y critica tus decisiones tácticas y de vida en voz alta frente a tus aliados."
+    },
+    {
+      "id": "obj_06",
+      "nombre": "Unas gafas que brillan solas.",
+      "ventaja": "Al acomodarlas con el dedo índice, ganas ventaja en todas tus tiradas de Inteligencia, Persuasión y en los momentos climáticos.",
+      "desventaja": "El destello anime es tan brillante que tu propia visión se vuelve completamente blanca durante 10 segundos, dejándote cegado temporalmente."
+    }
+  ]
+}
