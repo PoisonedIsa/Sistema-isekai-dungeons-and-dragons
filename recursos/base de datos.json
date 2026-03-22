@@ -166,6 +166,41 @@
       "id": "clase_13",
       "nombre": "Artífice",
       "descripcion": "Tienes un arma de fuego en un mundo donde usan espadas. El prota isekai que decidió traer la revolución industrial al medioevo."
+    },
+    {
+      "id": "clase_14",
+      "nombre": "Invocador",
+      "descripcion": "Puedes traer al campo de batalla a criaturas épicas y legendarias. El problema es que a veces te ignoran y se ponen a dormir."
+    },
+    {
+      "id": "clase_15",
+      "nombre": "Alquimista",
+      "descripcion": "Lanzas pociones explosivas y curativas que huelen sospechosamente mal. Eres el científico loco del grupo."
+    },
+    {
+      "id": "clase_16",
+      "nombre": "Hoja del Ocaso",
+      "descripcion": "Un espadachín mágico. Tienes una espada que brilla con fuego negro y no dejas de decir frases profundas sobre la oscuridad."
+    },
+    {
+      "id": "clase_17",
+      "nombre": "Bailarín de Batalla",
+      "descripcion": "Esquivas ataques mortales mientras haces coreografías perfectas de K-pop. Confundes a los orcos con tu ritmo."
+    },
+    {
+      "id": "clase_18",
+      "nombre": "Nigromante",
+      "descripcion": "Revives a los muertos porque hacer amigos vivos es demasiado agotador socialmente para ti."
+    },
+    {
+      "id": "clase_19",
+      "nombre": "Cocinero de Combate",
+      "descripcion": "Peleas con sartenes de hierro fundido y tu magia consiste en convertir a los monstruos derrotados en platillos gourmet de alta cocina."
+    },
+    {
+      "id": "clase_20",
+      "nombre": "Cartomante Multiversal",
+      "descripcion": "Haces daño sacando cartas de póker y aplicando multiplicadores y comodines rotos. Si no hay sinergia, pegas menos que un duende."
     }
   ],
   "rasgos": [
@@ -200,6 +235,54 @@
     {
       "id": "rasgo_08",
       "texto": "Su historia de origen es tan trágica que le da sueño a los demás."
+    },
+    {
+      "id": "rasgo_09",
+      "texto": "Tiene un aura melancólica victoriana y un cuervo que le recita poesía deprimente."
+    },
+    {
+      "id": "rasgo_10",
+      "texto": "Practica 'Mewing' constantemente para mantener la mandíbula afilada: +2 en Carisma, pero casi no puede hablar."
+    },
+    {
+      "id": "rasgo_11",
+      "texto": "Brilla cuando está motivado, literalmente. Arruina el sigilo cegando a sus aliados."
+    },
+    {
+      "id": "rasgo_12",
+      "texto": "Su estómago es un agujero negro. Puede comer pociones caducadas sin sufrir daño."
+    },
+    {
+      "id": "rasgo_13",
+      "texto": "Tiene un monólogo interno súper intenso que, sin querer, todos pueden escuchar por telepatía."
+    },
+    {
+      "id": "rasgo_14",
+      "texto": "Cada vez que derrota a un enemigo, suena música de victoria de 8-bits en el ambiente."
+    },
+    {
+      "id": "rasgo_15",
+      "texto": "Siempre hay un viento dramático moviendo su ropa, incluso en mazmorras subterráneas sin ventanas."
+    },
+    {
+      "id": "rasgo_16",
+      "texto": "Es adoptado por cualquier animal o bestia mágica callejera que se cruza en su camino."
+    },
+    {
+      "id": "rasgo_17",
+      "texto": "Puede identificar cualquier veneno o maldición simplemente lamiéndolo."
+    },
+    {
+      "id": "rasgo_18",
+      "texto": "No puede caminar de forma normal, siempre tiene que hacer parkour innecesario sobre los muebles."
+    },
+    {
+      "id": "rasgo_19",
+      "texto": "Siempre tiene una taza de té matcha caliente en la mano, sin importar si está peleando con un dragón."
+    },
+    {
+      "id": "rasgo_20",
+      "texto": "Sus ojos cambian de color según su estado de ánimo, como protagonista de un fanfic antiguo."
     }
   ],
   "defectos": [
@@ -230,44 +313,180 @@
     {
       "id": "defecto_07",
       "texto": "Su armadura tiene físicas de pechos exageradas (incluso si es un orco hombre o una armadura de placas)."
+    },
+    {
+      "id": "defecto_08",
+      "texto": "Alergia severa a la magia curativa. Sus heridas tienen que curarse con vendas, tiempo y caldito de pollo."
+    },
+    {
+      "id": "defecto_09",
+      "texto": "Se pierde en pasillos rectos. Tiene exactamente el mismo sentido de orientación que Zoro."
+    },
+    {
+      "id": "defecto_10",
+      "texto": "Sufre del 'Síndrome de Chuunibyou': se agarra el brazo jurando que un poder oscuro intenta salir."
+    },
+    {
+      "id": "defecto_11",
+      "texto": "No puede resistirse a acariciar monstruos letales si tienen buen pelaje, incluso a los más aterradores del folklore."
+    },
+    {
+      "id": "defecto_12",
+      "texto": "Solo puede recuperar puntos de golpe si hace su rutina de skincare (con tretinoína mágica) antes de dormir."
+    },
+    {
+      "id": "defecto_13",
+      "texto": "Se ofende si la comida no es gourmet. Las raciones secas de D&D le hacen 1d4 de daño psíquico."
+    },
+    {
+      "id": "defecto_14",
+      "texto": "Si ve una caja de cartón o un cofre vacío, siente la imperiosa necesidad felina de meterse adentro."
+    },
+    {
+      "id": "defecto_15",
+      "texto": "Tiene un enorme complejo de héroe de Shonen, pero se desmaya al ver sangre de verdad."
+    },
+    {
+      "id": "defecto_16",
+      "texto": "Gasta todo su oro en un 'gachapon' mágico de armas mediocres. Nunca tiene dinero para resucitar al sanador."
+    },
+    {
+      "id": "defecto_17",
+      "texto": "Tiene que seguir estudiando para sus exámenes médicos o de alquimia de la academia, incluso en medio de las mazmorras."
+    },
+    {
+      "id": "defecto_18",
+      "texto": "Llora incontrolablemente y pierde su turno cuando el villano empieza a contar su pasado triste."
+    },
+    {
+      "id": "defecto_19",
+      "texto": "Su arma de anime es tan gigante y pesada que va rompiendo el piso de madera por donde camina, arruinando el sigilo."
+    },
+    {
+      "id": "defecto_20",
+      "texto": "Se duerme instantáneamente si escucha un monólogo de exposición del Dungeon Master por más de 1 minuto."
     }
   ],
   "objetos": [
     {
       "id": "obj_01",
       "nombre": "Un Nokia 3310 sin batería.",
-      "ventaja": "Es materialmente indestructible. Puede usarse como un arma contundente mágica o para bloquear el aliento de un dragón sin recibir rasguños.",
-      "desventaja": "No tiene batería, así que no sirve para llamar por ayuda, ni tiene linterna, ni puedes jugar a la viborita mientras haces guardia."
+      "ventaja": "Es materialmente indestructible. Puede usarse como arma contundente mágica o para bloquear el aliento de un dragón.",
+      "desventaja": "No tiene batería, así que no sirve para llamar por ayuda ni puedes jugar a la viborita mientras haces guardia."
     },
     {
       "id": "obj_02",
       "nombre": "Una espátula nivel Dios.",
-      "ventaja": "Cualquier comida preparada con esto restaura todos los puntos de golpe y otorga bendiciones temporales a tu equipo.",
-      "desventaja": "Te obliga a hablar como un chef francés muy enojado mientras cocinas, arruinando cualquier intento de campamento sigiloso."
+      "ventaja": "Cualquier comida preparada con esto restaura todos los puntos de golpe y otorga bendiciones temporales.",
+      "desventaja": "Te obliga a hablar como un chef francés muy enojado mientras cocinas, arruinando el campamento sigiloso."
     },
     {
       "id": "obj_03",
       "nombre": "La Death Note, pero con faltas de ortografía.",
-      "ventaja": "Puedes eliminar a cualquier enemigo si escribes su nombre correctamente en ella pensando en su rostro.",
-      "desventaja": "Si escribes mal el nombre del monstruo, el efecto se te devuelve a ti. Y los nombres de los monstruos de D&D son MUY difíciles de escribir."
+      "ventaja": "Puedes eliminar a cualquier enemigo si escribes su nombre correctamente pensando en su rostro.",
+      "desventaja": "Los nombres de los monstruos de fantasía son rarísimos. Si escribes mal, el efecto se te devuelve."
     },
     {
       "id": "obj_04",
       "nombre": "Un cupón de ramen expirado.",
-      "ventaja": "Alcanza niveles absurdos de nostalgia. Te permite convocar una lluvia de fideos calientes que quema a los enemigos en un radio de 6 metros.",
-      "desventaja": "El olor a sopa barata atrae a todas las bestias hambrientas en 2 kilómetros a la redonda hacia tu ubicación."
+      "ventaja": "Alcanza niveles absurdos de nostalgia. Convoca una lluvia de fideos hirviendo que quema a los enemigos en área.",
+      "desventaja": "El olor a sopa de paquete atrae a todas las bestias hambrientas en 2 kilómetros a la redonda hacia ti."
     },
     {
       "id": "obj_05",
       "nombre": "Una dakimakura (almohada) mágica.",
-      "ventaja": "Abrazarla durante un descanso corto te otorga resistencia al daño emocional y recuperas el doble de puntos de golpe.",
-      "desventaja": "La almohada está encantada con consciencia propia y critica tus decisiones tácticas y de vida en voz alta frente a tus aliados."
+      "ventaja": "Abrazarla durante un descanso corto te otorga resistencia al daño emocional y recuperas el doble de salud.",
+      "desventaja": "La almohada tiene consciencia propia y critica en voz alta tus decisiones tácticas y amorosas."
     },
     {
       "id": "obj_06",
       "nombre": "Unas gafas que brillan solas.",
-      "ventaja": "Al acomodarlas con el dedo índice, ganas ventaja en todas tus tiradas de Inteligencia, Persuasión y en los momentos climáticos.",
-      "desventaja": "El destello anime es tan brillante que tu propia visión se vuelve completamente blanca durante 10 segundos, dejándote cegado temporalmente."
+      "ventaja": "Al acomodarlas con el dedo índice, ganas ventaja en Inteligencia y Persuasión en los momentos climáticos.",
+      "desventaja": "El destello anime es tan brillante que tu propia visión se vuelve completamente blanca, dejándote cegado por un turno."
+    },
+    {
+      "id": "obj_07",
+      "nombre": "Un mazo de cartas radiactivas.",
+      "ventaja": "Al sacar cartas obtienes multiplicadores de daño ridículamente altos.",
+      "desventaja": "Si sacas un 'Joker maldito', la carta se come una poción al azar de tu inventario."
+    },
+    {
+      "id": "obj_08",
+      "nombre": "Bata de estudiante universitario estresado.",
+      "ventaja": "Los humanoides te tienen tanta lástima por tus ojeras que dudan un turno en atacarte.",
+      "desventaja": "Los zombies te persiguen pensando que trabajas en la morgue y tienes comida fresca."
+    },
+    {
+      "id": "obj_09",
+      "nombre": "Recetario mágico familiar.",
+      "ventaja": "Permite crear guisos épicos que curan cualquier maldición usando ingredientes de monstruos.",
+      "desventaja": "Si un aliado dice que 'le falta sal', entras en estado de Furia y debes atacarlo."
+    },
+    {
+      "id": "obj_10",
+      "nombre": "Cráneo rúnico de criatura del bosque nevado.",
+      "ventaja": "Aterroriza a los enemigos débiles y te permite hablar con los espíritus oscuros de los árboles.",
+      "desventaja": "Te da antojos incontrolables de carne cruda y pesadillas a las 3 AM."
+    },
+    {
+      "id": "obj_11",
+      "nombre": "Paraguas victoriano a rayas.",
+      "ventaja": "Te permite flotar suavemente desde cualquier caída con una estética gótica impecable.",
+      "desventaja": "Te vuelve increíblemente pálido, ojerudo y deprimido hasta que lo cierras."
+    },
+    {
+      "id": "obj_12",
+      "nombre": "Cachorrito rescatado de otro plano.",
+      "ventaja": "Te alerta de emboscadas con ladridos adorables. Todo el mundo lo ama.",
+      "desventaja": "Come el triple que un orco y se la pasa mordiéndole los tobillos al jefe final en el peor momento."
+    },
+    {
+      "id": "obj_13",
+      "nombre": "Consola en forma de ladrillo verde.",
+      "ventaja": "Te permite 'pausar' el tiempo 1 minuto al día en la vida real para pensar tu jugada.",
+      "desventaja": "Emite el sonido de 'Achievement Unlocked' a todo volumen cuando logras un ataque furtivo, delatándote."
+    },
+    {
+      "id": "obj_14",
+      "nombre": "El Pan Tostado de preparatoria.",
+      "ventaja": "Si corres con él en la boca al iniciar el combate, esquivas automáticamente el primer ataque.",
+      "desventaja": "Inevitablemente chocarás de frente con el enemigo más Tsundere del lugar, provocando un evento de diálogo."
+    },
+    {
+      "id": "obj_15",
+      "nombre": "Botón físico de 'Skip Intro'.",
+      "ventaja": "Pulsarlo te permite saltarte el monólogo del villano y atacarlo directamente por sorpresa.",
+      "desventaja": "Como te saltaste la intro, no te enteras de qué trataba el plan malévolo ni cómo desactivar la bomba."
+    },
+    {
+      "id": "obj_16",
+      "nombre": "Sudadera de protagonista (Talla XXXL).",
+      "ventaja": "Sube tu armadura porque los enemigos no saben dónde termina la tela y dónde empieza tu cuerpo.",
+      "desventaja": "Se engancha trágicamente en cada rama, cerradura o clavo suelto de la mazmorra."
+    },
+    {
+      "id": "obj_17",
+      "nombre": "Poción de 'Plot Armor' (Armadura de Guion).",
+      "ventaja": "Sobrevives a un golpe letal quedando milagrosamente a 1 punto de vida.",
+      "desventaja": "Funciona gracias al 'Poder de la Amistad', así que tu aliado más cercano recibe el resto del daño."
+    },
+    {
+      "id": "obj_18",
+      "nombre": "Gato negro parlante de Mahou Shoujo.",
+      "ventaja": "Te da consejos tácticos perfectos y puede identificar objetos mágicos malditos.",
+      "desventaja": "Es sumamente condescendiente y te juzga públicamente por tus malas tiradas de dados."
+    },
+    {
+      "id": "obj_19",
+      "nombre": "Un parche en el ojo muy vistoso.",
+      "ventaja": "Al quitártelo desatas tu verdadero poder: ventaja en todos los ataques por un turno.",
+      "desventaja": "Pierdes percepción de profundidad el resto del día y chocas con las paredes."
+    },
+    {
+      "id": "obj_20",
+      "nombre": "Auriculares con cancelación de ruido mágica.",
+      "ventaja": "Inmunidad total a ataques sónicos, gritos de banshee y encantamientos de bardos pesados.",
+      "desventaja": "No puedes escuchar a tu grupo cuando gritan '¡Cuidado atrás!' o '¡Esa palanca es una trampa!'."
     }
   ]
 }
