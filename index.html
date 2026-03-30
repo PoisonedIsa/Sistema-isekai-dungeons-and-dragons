@@ -106,6 +106,9 @@
 
     <!-- Encabezado -->
     <header class="text-center mb-6 mt-4 w-full max-w-md sm:max-w-lg bg-slate-900/40 rounded-2xl py-4 px-3 border border-indigo-900/40">
+        <p class="text-indigo-300 text-[10px] sm:text-xs font-bold tracking-[0.25em] uppercase mb-1 sm:mb-2 drop-shadow-sm">
+            Riogatsu Fest x Unach presenta:
+        </p>
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#22d3ee] to-[#6366f1] mb-2 drop-shadow-[0_0_10px_rgba(99,102,241,0.5)]">
             SISTEMA ISEKAI
         </h1>
@@ -293,56 +296,51 @@
         const chipsSoundUrl = 'https://raw.githubusercontent.com/PoisonedIsa/Sistema-isekai-dungeons-and-dragons/main/recursos/chips2.ogg';
         const multHitSoundUrl = 'https://raw.githubusercontent.com/PoisonedIsa/Sistema-isekai-dungeons-and-dragons/main/recursos/multhit2.ogg';
         
-        // Precargar sonidos como Blob en memoria para eliminar latencia de red y permitir clones
-        const audioVault = {};
+        // --- SISTEMA DE AUDIO OPTIMIZADO (Web Audio API para 0 latencia) ---
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioCtx = new AudioContext();
+        const audioBuffers = {};
         
-        async function loadAudioBlob(name, url, vol) {
+        async function loadAudio(name, url) {
             try {
                 const response = await fetch(url);
-                const blob = await response.blob();
-                const audio = new Audio(URL.createObjectURL(blob));
-                audio.volume = vol;
-                audioVault[name] = audio;
+                const arrayBuffer = await response.arrayBuffer();
+                const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+                audioBuffers[name] = audioBuffer;
             } catch (error) {
-                // Fallback normal si el fetch falla
-                const audio = new Audio(url);
-                audio.volume = vol;
-                audioVault[name] = audio;
+                console.error("Error al cargar el audio:", name, error);
             }
         }
 
-        loadAudioBlob('whoosh', whooshSoundUrl, 1);
-        loadAudioBlob('cardSlide', cardSlideSoundUrl, 0.4);
-        loadAudioBlob('chips', chipsSoundUrl, 0.6);
-        loadAudioBlob('multHit', multHitSoundUrl, 0.8);
+        loadAudio('whoosh', whooshSoundUrl);
+        loadAudio('cardSlide', cardSlideSoundUrl);
+        loadAudio('chips', chipsSoundUrl);
+        loadAudio('multHit', multHitSoundUrl);
 
-        // Reproducir sonido reiniciando su tiempo (evita sobreposiciones ruidosas)
-        function playSound(name) {
-            if(audioVault[name]) {
-                audioVault[name].currentTime = 0;
-                audioVault[name].play().catch(e => console.log("Audio bloqueado:", e));
+        // Reproducir sonido al instante creando un nuevo nodo de audio
+        function playSound(name, vol = 1.0) {
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            if (audioBuffers[name]) {
+                const source = audioCtx.createBufferSource();
+                source.buffer = audioBuffers[name];
+                
+                const gainNode = audioCtx.createGain();
+                gainNode.gain.value = vol;
+                
+                source.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                
+                source.start(0);
             }
         }
 
-        // Detener sonido por completo
-        function stopSound(name) {
-            if(audioVault[name]) {
-                audioVault[name].pause();
-                audioVault[name].currentTime = 0;
-            }
-        }
-
-        // Desbloquear audio en móviles (requiere interacción del usuario)
-        let audioUnlocked = false;
+        // Desbloquear contexto de audio en móviles al primer toque
         function unlockAudio() {
-            if (audioUnlocked) return;
-            Object.values(audioVault).forEach(audio => {
-                audio.play().then(() => {
-                    audio.pause();
-                    audio.currentTime = 0;
-                }).catch(() => {});
-            });
-            audioUnlocked = true;
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
         }
         
         let dbData = null; 
@@ -442,9 +440,9 @@
             // Tiempos incrementados en 1 segundo (1000ms) cada uno
             const stopDurations = [2000, 2600, 3400, 4200, 5000]; 
 
-            // Efecto de sonido de barajar (reinicia el audio para dar efecto de "tick" sin saturar)
+            // Efecto de sonido de barajar (súper fluido con Web Audio)
             const spinSoundInterval = setInterval(() => {
-                playSound('cardSlide');
+                playSound('cardSlide', 0.4);
             }, 180);
 
             slotConfig.forEach((config, index) => {
@@ -469,7 +467,7 @@
                     clearInterval(intervals[config.id]);
                     
                     // Reproducir sonido de fijación de resultado sin latencia
-                    playSound('chips');
+                    playSound('chips', 0.6);
                     
                     const finalItem = dataArray[Math.floor(Math.random() * dataArray.length)];
                     currentResults[config.id] = finalItem; 
@@ -484,11 +482,10 @@
                     el.classList.add('resultado--nuevo');
 
                     if (index === slotConfig.length - 1) {
-                        clearInterval(spinSoundInterval); // Detener intervalo
-                        stopSound('cardSlide'); // Apagar sonido de giro por completo
+                        clearInterval(spinSoundInterval); // Detener intervalo de cartas
                         
                         // Reproducir sonido especial de finalización de ruleta
-                        playSound('multHit');
+                        playSound('multHit', 0.8);
                         
                         isSpinning = false;
                         spinBtn.classList.remove('opacity-80', 'cursor-not-allowed');
@@ -513,7 +510,7 @@
             if(!currentResults.raza) return; // Prevenir si no hay datos
             
             // Reproducir el efecto de sonido "whoosh" al instante
-            playSound('whoosh');
+            playSound('whoosh', 1.0);
             
             // Llenar Ficha con la información extraida
             document.getElementById('det-raza-nombre').innerText = currentResults.raza.nombre;
@@ -568,7 +565,7 @@
                     d20Value.textContent = roll;
                     
                     // Sonido rápido de cartas
-                    if (counter % 2 === 0) playSound('cardSlide'); 
+                    if (counter % 2 === 0) playSound('cardSlide', 0.4); 
                     counter++;
                     
                     // Vibración horizontal continua aleatoria
@@ -594,7 +591,7 @@
                     d20ResultValue.classList.add('text-amber-300', 'resultado--nuevo');
                     
                     // Sonido final
-                    playSound('chips');
+                    playSound('chips', 0.6);
                     
                     isRollingD20 = false;
                 }, 1500);
